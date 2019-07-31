@@ -1,6 +1,6 @@
 # Okta
 
-This library provides an Elixir API for accessing the [Okta Developer APIS](https://developer.okta.com/docs/reference/).
+This library provides an Elixir API for accessing the [Okta Developer APIs](https://developer.okta.com/docs/reference/).
 
 Currently implemented are:
 * [Users API](https://developer.okta.com/docs/reference/api/users/)
