@@ -4,7 +4,7 @@ defmodule Okta.MixProject do
   def project do
     [
       app: :okta,
-      version: "0.1.0",
+      version: "0.1.1",
       elixir: "~> 1.9-rc",
       start_permanent: Mix.env() == :prod,
       description: description(),
@@ -39,9 +39,9 @@ defmodule Okta.MixProject do
 
   defp package do
     [
+      name: "okta_api",
       # These are the default files included in the package
-      files: ~w(lib priv .formatter.exs mix.exs README* readme* LICENSE*
-                license* CHANGELOG* changelog* src),
+      files: ~w(lib config .formatter.exs mix.exs README* LICENSE* ),
       licenses: ["MIT License"],
       links: %{"GitHub" => "https://github.com/variance-inc/okta-elixir"}
     ]
