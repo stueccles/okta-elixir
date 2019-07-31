@@ -9,12 +9,12 @@ defmodule Okta.Users do
   ```
   client = Okta.Client("https://dev-000000.okta.com", "thisismykeycreatedinokta")
 
-  {:ok, result} = Okta.Users.list_users(client)
+  {:ok, result, _env} = Okta.Users.list_users(client)
   ```
   """
 
   @type client() :: Tesla.Client.t()
-  @type result() :: {:ok, Tesla.Env.t()} | {:error, any}
+  @type result() :: {:ok, map(), Tesla.Env.t()} | {:error, map(), any}
 
   @users_url "/api/v1/users"
 
@@ -25,7 +25,7 @@ defmodule Okta.Users do
   """
   @spec get_user(client(), String.t()) :: result()
   def get_user(client, user) do
-    Tesla.get(client, @users_url <> "/#{user}")
+    Tesla.get(client, @users_url <> "/#{user}") |> Okta.result()
   end
 
   @doc """
@@ -35,7 +35,7 @@ defmodule Okta.Users do
   """
   @spec get_current_user(client()) :: result()
   def get_current_user(client) do
-    Tesla.get(client, @users_url <> "/me")
+    Tesla.get(client, @users_url <> "/me") |> Okta.result()
   end
 
   @doc """
@@ -45,7 +45,7 @@ defmodule Okta.Users do
   """
   @spec get_assigned_applinks(client(), String.t()) :: result()
   def get_assigned_applinks(client, user_id) do
-    Tesla.get(client, @users_url <> "/#{user_id}" <> "/appLinks")
+    Tesla.get(client, @users_url <> "/#{user_id}" <> "/appLinks") |> Okta.result()
   end
 
   @doc """
@@ -55,7 +55,7 @@ defmodule Okta.Users do
   """
   @spec get_groups_for_user(client(), String.t()) :: result()
   def get_groups_for_user(client, user_id) do
-    Tesla.get(client, @users_url <> "/#{user_id}" <> "/groups")
+    Tesla.get(client, @users_url <> "/#{user_id}" <> "/groups") |> Okta.result()
   end
 
   @doc """
@@ -68,6 +68,7 @@ defmodule Okta.Users do
   @spec clear_user_sessions(client(), String.t(), boolean()) :: result()
   def clear_user_sessions(client, user_id, oauth_tokens \\ false) do
     Tesla.delete(client, @users_url <> "/#{user_id}", query: [oauthTokens: oauth_tokens])
+    |> Okta.result()
   end
 
   @doc """
@@ -88,7 +89,7 @@ defmodule Okta.Users do
   """
   @spec list_users(client(), keyword()) :: result()
   def list_users(client, opts \\ []) do
-    Tesla.get(client, @users_url, query: opts)
+    Tesla.get(client, @users_url, query: opts) |> Okta.result()
   end
 
   @doc """
@@ -234,7 +235,7 @@ defmodule Okta.Users do
         else: data
       )
 
-    Tesla.post(client, @users_url, data, query: query_params)
+    Tesla.post(client, @users_url, data, query: query_params) |> Okta.result()
   end
 
   @doc """
@@ -289,6 +290,7 @@ defmodule Okta.Users do
   @spec set_password(client(), String.t(), String.t()) :: result()
   def set_password(client, user_id, password) do
     Tesla.post(client, @users_url <> "/#{user_id}", %{credentials: password_data(password)})
+    |> Okta.result()
   end
 
   @doc """
@@ -308,6 +310,7 @@ defmodule Okta.Users do
       },
       query: [strict: strict]
     )
+    |> Okta.result()
   end
 
   @doc """
@@ -322,6 +325,7 @@ defmodule Okta.Users do
     Tesla.put(client, @users_url <> "/#{user_id}", %{
       credentials: recovery_data(question, answer)
     })
+    |> Okta.result()
   end
 
   @doc """
@@ -337,6 +341,7 @@ defmodule Okta.Users do
     Tesla.post(client, @users_url <> "/#{user_id}", %{
       credentials: Map.merge(password_data(password), recovery_data(question, answer))
     })
+    |> Okta.result()
   end
 
   @doc """
@@ -358,6 +363,7 @@ defmodule Okta.Users do
       "",
       query: [sendEmail: send_email]
     )
+    |> Okta.result()
   end
 
   @doc """
@@ -377,6 +383,7 @@ defmodule Okta.Users do
       "",
       query: [sendEmail: send_email]
     )
+    |> Okta.result()
   end
 
   @doc """
@@ -395,6 +402,7 @@ defmodule Okta.Users do
     Tesla.post(client, @users_url <> "/#{user_id}/lifecycle/deactivate", "",
       query: [sendEmail: send_email]
     )
+    |> Okta.result()
   end
 
   @doc """
@@ -404,7 +412,7 @@ defmodule Okta.Users do
   """
   @spec unlock_user(client(), String.t()) :: result()
   def unlock_user(client, user_id) do
-    Tesla.post(client, @users_url <> "/#{user_id}/lifecycle/unlock", "")
+    Tesla.post(client, @users_url <> "/#{user_id}/lifecycle/unlock", "") |> Okta.result()
   end
 
   @doc """
@@ -419,6 +427,7 @@ defmodule Okta.Users do
     Tesla.post(client, @users_url <> "/#{user_id}/lifecycle/expire_password", "",
       query: [tempPassword: temp_password]
     )
+    |> Okta.result()
   end
 
   @doc """
@@ -436,6 +445,7 @@ defmodule Okta.Users do
       "",
       query: [sendEmail: send_email]
     )
+    |> Okta.result()
   end
 
   @doc """
@@ -448,7 +458,7 @@ defmodule Okta.Users do
   """
   @spec suspend_user(client(), String.t()) :: result()
   def suspend_user(client, user_id) do
-    Tesla.post(client, @users_url <> "/#{user_id}/lifecycle/suspend", "")
+    Tesla.post(client, @users_url <> "/#{user_id}/lifecycle/suspend", "") |> Okta.result()
   end
 
   @doc """
@@ -458,7 +468,7 @@ defmodule Okta.Users do
   """
   @spec unsuspend_user(client(), String.t()) :: result()
   def unsuspend_user(client, user_id) do
-    Tesla.post(client, @users_url <> "/#{user_id}/lifecycle/unsuspend", "")
+    Tesla.post(client, @users_url <> "/#{user_id}/lifecycle/unsuspend", "") |> Okta.result()
   end
 
   @doc """
@@ -469,6 +479,7 @@ defmodule Okta.Users do
   @spec delete_user(client(), String.t(), boolean()) :: result()
   def delete_user(client, user_id, send_email \\ false) do
     Tesla.delete(client, @users_url <> "/#{user_id}", query: [sendEmail: send_email])
+    |> Okta.result()
   end
 
   @doc """
@@ -487,6 +498,7 @@ defmodule Okta.Users do
       "",
       query: [sendEmail: send_email]
     )
+    |> Okta.result()
   end
 
   @doc """
@@ -507,6 +519,7 @@ defmodule Okta.Users do
       @users_url <> "/#{user_id}/credentials/forgot_password",
       %{password: %{value: new_password}, recovery_question: %{answer: security_answer}}
     )
+    |> Okta.result()
   end
 
   defp recovery_data(question, answer),

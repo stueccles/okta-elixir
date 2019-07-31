@@ -23,7 +23,7 @@ defmodule Okta.UsersUpdateTest do
         {:ok, Tesla.Mock.json(%{}, status: 200)}
     end)
 
-    assert {:ok, result} = Okta.Users.clear_user_sessions(client, user_id)
+    assert {:ok, %{}, _env} = Okta.Users.clear_user_sessions(client, user_id)
   end
 
   test "set_password/3 requests correctly", %{
@@ -43,7 +43,7 @@ defmodule Okta.UsersUpdateTest do
         {:ok, Tesla.Mock.json(%{}, status: 200)}
     end)
 
-    assert {:ok, result} = Okta.Users.set_password(client, user_id, password)
+    assert {:ok, %{}, _env} = Okta.Users.set_password(client, user_id, password)
   end
 
   test "change_password/4 requests correctly", %{
@@ -71,7 +71,8 @@ defmodule Okta.UsersUpdateTest do
         {:ok, Tesla.Mock.json(%{}, status: 200)}
     end)
 
-    assert {:ok, result} = Okta.Users.change_password(client, user_id, old_password, new_password)
+    assert {:ok, %{}, _env} =
+             Okta.Users.change_password(client, user_id, old_password, new_password)
   end
 
   test "set_recovery_credential/4 requests correctly", %{
@@ -94,7 +95,8 @@ defmodule Okta.UsersUpdateTest do
         {:ok, Tesla.Mock.json(%{}, status: 200)}
     end)
 
-    assert {:ok, result} = Okta.Users.set_recovery_credential(client, user_id, question, answer)
+    assert {:ok, %{}, _env} =
+             Okta.Users.set_recovery_credential(client, user_id, question, answer)
   end
 
   test "change_recovery_credential/5 requests correctly", %{
@@ -123,7 +125,7 @@ defmodule Okta.UsersUpdateTest do
         {:ok, Tesla.Mock.json(%{}, status: 200)}
     end)
 
-    assert {:ok, result} =
+    assert {:ok, %{}, _env} =
              Okta.Users.change_recovery_credential(client, user_id, password, question, answer)
   end
 
@@ -144,7 +146,7 @@ defmodule Okta.UsersUpdateTest do
         {:ok, Tesla.Mock.json(%{}, status: 200)}
     end)
 
-    assert {:ok, result} = Okta.Users.activate_user(client, user_id)
+    assert {:ok, %{}, _env} = Okta.Users.activate_user(client, user_id)
   end
 
   test "activate_user/3 requests correctly", %{
@@ -164,7 +166,7 @@ defmodule Okta.UsersUpdateTest do
         {:ok, Tesla.Mock.json(%{}, status: 200)}
     end)
 
-    assert {:ok, result} = Okta.Users.activate_user(client, user_id, true)
+    assert {:ok, %{}, _env} = Okta.Users.activate_user(client, user_id, true)
   end
 
   test "deactivate_user/2 requests correctly", %{
@@ -183,7 +185,7 @@ defmodule Okta.UsersUpdateTest do
         {:ok, Tesla.Mock.json(%{}, status: 200)}
     end)
 
-    assert {:ok, result} = Okta.Users.deactivate_user(client, user_id)
+    assert {:ok, %{}, _env} = Okta.Users.deactivate_user(client, user_id)
   end
 
   test "unlock_user/2 requests correctly", %{
@@ -202,7 +204,7 @@ defmodule Okta.UsersUpdateTest do
         {:ok, Tesla.Mock.json(%{}, status: 200)}
     end)
 
-    assert {:ok, result} = Okta.Users.unlock_user(client, user_id)
+    assert {:ok, %{}, _env} = Okta.Users.unlock_user(client, user_id)
   end
 
   test "expire_passsword/2 requests correctly", %{
@@ -222,7 +224,7 @@ defmodule Okta.UsersUpdateTest do
         {:ok, Tesla.Mock.json(%{}, status: 200)}
     end)
 
-    assert {:ok, result} = Okta.Users.expire_passsword(client, user_id)
+    assert {:ok, %{}, _env} = Okta.Users.expire_passsword(client, user_id)
   end
 
   test "expire_passsword/3 requests correctly", %{
@@ -242,7 +244,7 @@ defmodule Okta.UsersUpdateTest do
         {:ok, Tesla.Mock.json(%{}, status: 200)}
     end)
 
-    assert {:ok, result} = Okta.Users.expire_passsword(client, user_id, true)
+    assert {:ok, %{}, _env} = Okta.Users.expire_passsword(client, user_id, true)
   end
 
   test "reset_password/2 requests correctly", %{
@@ -262,7 +264,7 @@ defmodule Okta.UsersUpdateTest do
         {:ok, Tesla.Mock.json(%{}, status: 200)}
     end)
 
-    assert {:ok, result} = Okta.Users.reset_password(client, user_id)
+    assert {:ok, %{}, _env} = Okta.Users.reset_password(client, user_id)
   end
 
   test "reset_password/3 requests correctly", %{
@@ -282,7 +284,7 @@ defmodule Okta.UsersUpdateTest do
         {:ok, Tesla.Mock.json(%{}, status: 200)}
     end)
 
-    assert {:ok, result} = Okta.Users.reset_password(client, user_id, true)
+    assert {:ok, %{}, _env} = Okta.Users.reset_password(client, user_id, true)
   end
 
   test "suspend_user/2 requests correctly", %{
@@ -301,7 +303,7 @@ defmodule Okta.UsersUpdateTest do
         {:ok, Tesla.Mock.json(%{}, status: 200)}
     end)
 
-    assert {:ok, result} = Okta.Users.suspend_user(client, user_id)
+    assert {:ok, %{}, _env} = Okta.Users.suspend_user(client, user_id)
   end
 
   test "unsuspend_user/2 requests correctly", %{
@@ -320,7 +322,7 @@ defmodule Okta.UsersUpdateTest do
         {:ok, Tesla.Mock.json(%{}, status: 200)}
     end)
 
-    assert {:ok, result} = Okta.Users.unsuspend_user(client, user_id)
+    assert {:ok, %{}, _env} = Okta.Users.unsuspend_user(client, user_id)
   end
 
   test "forgot_password/2 requests correctly", %{
@@ -340,7 +342,7 @@ defmodule Okta.UsersUpdateTest do
         {:ok, Tesla.Mock.json(%{}, status: 200)}
     end)
 
-    assert {:ok, result} = Okta.Users.forgot_password(client, user_id)
+    assert {:ok, %{}, _env} = Okta.Users.forgot_password(client, user_id)
   end
 
   test "forgot_password/3 requests correctly", %{
@@ -360,7 +362,7 @@ defmodule Okta.UsersUpdateTest do
         {:ok, Tesla.Mock.json(%{}, status: 200)}
     end)
 
-    assert {:ok, result} = Okta.Users.forgot_password(client, user_id, false)
+    assert {:ok, %{}, _env} = Okta.Users.forgot_password(client, user_id, false)
   end
 
   test "forgot_password_with_security_answer/4 requests correctly", %{
@@ -389,7 +391,7 @@ defmodule Okta.UsersUpdateTest do
         {:ok, Tesla.Mock.json(%{}, status: 200)}
     end)
 
-    assert {:ok, result} =
+    assert {:ok, %{}, _env} =
              Okta.Users.forgot_password_with_security_answer(
                client,
                user_id,

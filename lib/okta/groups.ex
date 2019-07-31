@@ -9,11 +9,11 @@ defmodule Okta.Groups do
   ```
   client = Okta.Client("https://dev-000000.okta.com", "thisismykeycreatedinokta")
 
-  {:ok, result} = Okta.Groups.list_groups(client)
+  {:ok, result, _env} = Okta.Groups.list_groups(client)
   ```
   """
   @type client() :: Tesla.Client.t()
-  @type result() :: {:ok, Tesla.Env.t()} | {:error, any}
+  @type result() :: {:ok, map(), Tesla.Env.t()} | {:error, map(), any}
 
   @groups_url "/api/v1/groups"
 
@@ -34,7 +34,7 @@ defmodule Okta.Groups do
   """
   @spec create_group(client(), map()) :: result()
   def create_group(client, profile) do
-    Tesla.post(client, @groups_url, %{profile: profile})
+    Tesla.post(client, @groups_url, %{profile: profile}) |> Okta.result()
   end
 
   @doc """
@@ -46,7 +46,7 @@ defmodule Okta.Groups do
   """
   @spec update_group(client(), String.t(), map()) :: result()
   def update_group(client, group_id, profile) do
-    Tesla.put(client, @groups_url <> "/#{group_id}", %{profile: profile})
+    Tesla.put(client, @groups_url <> "/#{group_id}", %{profile: profile}) |> Okta.result()
   end
 
   @doc """
@@ -56,7 +56,7 @@ defmodule Okta.Groups do
   """
   @spec delete_group(client(), String.t()) :: result()
   def delete_group(client, group_id) do
-    Tesla.delete(client, @groups_url <> "/#{group_id}")
+    Tesla.delete(client, @groups_url <> "/#{group_id}") |> Okta.result()
   end
 
   @doc """
@@ -66,7 +66,7 @@ defmodule Okta.Groups do
   """
   @spec get_group(client(), String.t()) :: result()
   def get_group(client, group_id) do
-    Tesla.get(client, @groups_url <> "/#{group_id}")
+    Tesla.get(client, @groups_url <> "/#{group_id}") |> Okta.result()
   end
 
   @doc """
@@ -76,7 +76,7 @@ defmodule Okta.Groups do
   """
   @spec list_group_members(client(), String.t()) :: result()
   def list_group_members(client, group_id, opt \\ []) do
-    Tesla.get(client, @groups_url <> "/#{group_id}/users", query: opt)
+    Tesla.get(client, @groups_url <> "/#{group_id}/users", query: opt) |> Okta.result()
   end
 
   @doc """
@@ -86,7 +86,7 @@ defmodule Okta.Groups do
   """
   @spec list_group_apps(client(), String.t()) :: result()
   def list_group_apps(client, group_id, opt \\ []) do
-    Tesla.get(client, @groups_url <> "/#{group_id}/apps", query: opt)
+    Tesla.get(client, @groups_url <> "/#{group_id}/apps", query: opt) |> Okta.result()
   end
 
   @doc """
@@ -96,7 +96,7 @@ defmodule Okta.Groups do
   """
   @spec remove_user_from_group(client(), String.t(), String.t()) :: result()
   def remove_user_from_group(client, group_id, user_id) do
-    Tesla.delete(client, @groups_url <> "/#{group_id}/users/#{user_id}")
+    Tesla.delete(client, @groups_url <> "/#{group_id}/users/#{user_id}") |> Okta.result()
   end
 
   @doc """
@@ -106,7 +106,7 @@ defmodule Okta.Groups do
   """
   @spec add_user_to_group(client(), String.t(), String.t()) :: result()
   def add_user_to_group(client, group_id, user_id) do
-    Tesla.put(client, @groups_url <> "/#{group_id}/users/#{user_id}", "")
+    Tesla.put(client, @groups_url <> "/#{group_id}/users/#{user_id}", "") |> Okta.result()
   end
 
   @doc """
@@ -127,7 +127,7 @@ defmodule Okta.Groups do
   """
   @spec list_groups(client(), keyword()) :: result()
   def list_groups(client, opts \\ []) do
-    Tesla.get(client, @groups_url, query: opts)
+    Tesla.get(client, @groups_url, query: opts) |> Okta.result()
   end
 
   @doc """

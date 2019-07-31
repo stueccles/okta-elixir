@@ -53,7 +53,7 @@ defmodule Okta.UsersCreateTest do
         {:ok, Tesla.Mock.json(%{}, status: 200)}
     end)
 
-    assert {:ok, result} = Okta.Users.create_user(client, profile)
+    assert {:ok, %{}, _env} = Okta.Users.create_user(client, profile)
   end
 
   test "create_user/3 with activated profile requests correctly", %{
@@ -72,7 +72,7 @@ defmodule Okta.UsersCreateTest do
         {:ok, Tesla.Mock.json(%{}, status: 200)}
     end)
 
-    assert {:ok, result} = Okta.Users.create_user(client, profile, false)
+    assert {:ok, %{}, _env} = Okta.Users.create_user(client, profile, false)
   end
 
   test "create_user/4 with activated profile and credentials requests correctly", %{
@@ -92,7 +92,7 @@ defmodule Okta.UsersCreateTest do
         {:ok, Tesla.Mock.json(%{}, status: 200)}
     end)
 
-    assert {:ok, result} =
+    assert {:ok, %{}, _env} =
              Okta.Users.create_user(client, profile, false, credentials: credentials)
   end
 
@@ -116,7 +116,7 @@ defmodule Okta.UsersCreateTest do
         {:ok, Tesla.Mock.json(%{}, status: 200)}
     end)
 
-    assert {:ok, result} =
+    assert {:ok, %{}, _env} =
              Okta.Users.create_user(client, profile, false,
                credentials: credentials,
                group_ids: group_ids
@@ -148,7 +148,7 @@ defmodule Okta.UsersCreateTest do
         {:ok, Tesla.Mock.json(%{}, status: 200)}
     end)
 
-    assert {:ok, result} =
+    assert {:ok, %{}, _env} =
              Okta.Users.create_user(client, profile, false,
                credentials: credentials,
                group_ids: group_ids,
@@ -181,7 +181,7 @@ defmodule Okta.UsersCreateTest do
         {:ok, Tesla.Mock.json(%{}, status: 200)}
     end)
 
-    assert {:ok, result} =
+    assert {:ok, %{}, _env} =
              Okta.Users.create_user(client, profile, false,
                credentials: credentials,
                group_ids: group_ids,
@@ -210,7 +210,7 @@ defmodule Okta.UsersCreateTest do
         {:ok, Tesla.Mock.json(%{}, status: 200)}
     end)
 
-    assert {:ok, result} = Okta.Users.create_user_with_password(client, profile, password)
+    assert {:ok, %{}, _env} = Okta.Users.create_user_with_password(client, profile, password)
   end
 
   test "create_user_with_password/4 with activate requests correctly", %{
@@ -233,7 +233,8 @@ defmodule Okta.UsersCreateTest do
         {:ok, Tesla.Mock.json(%{}, status: 200)}
     end)
 
-    assert {:ok, result} = Okta.Users.create_user_with_password(client, profile, password, false)
+    assert {:ok, %{}, _env} =
+             Okta.Users.create_user_with_password(client, profile, password, false)
   end
 
   test "create_user_with_provider/4 requests correctly", %{
@@ -259,7 +260,7 @@ defmodule Okta.UsersCreateTest do
         {:ok, Tesla.Mock.json(%{}, status: 200)}
     end)
 
-    assert {:ok, result} =
+    assert {:ok, %{}, _env} =
              Okta.Users.create_user_with_provider(
                client,
                profile,

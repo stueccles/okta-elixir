@@ -19,7 +19,7 @@ defmodule Okta.UsersFindTest do
         {:ok, Tesla.Mock.json(%{}, status: 200)}
     end)
 
-    assert {:ok, result} = Okta.Users.get_current_user(client)
+    assert {:ok, %{}, _env} = Okta.Users.get_current_user(client)
   end
 
   test "get_user/2 requests correctly", %{client: client, base_url: base_url, user_id: user_id} do
@@ -31,7 +31,7 @@ defmodule Okta.UsersFindTest do
         {:ok, Tesla.Mock.json(%{}, status: 200)}
     end)
 
-    assert {:ok, result} = Okta.Users.get_user(client, user_id)
+    assert {:ok, %{}, _env} = Okta.Users.get_user(client, user_id)
   end
 
   test "get_assigned_applinks/2 requests correctly", %{
@@ -47,7 +47,7 @@ defmodule Okta.UsersFindTest do
         {:ok, Tesla.Mock.json(%{}, status: 200)}
     end)
 
-    assert {:ok, result} = Okta.Users.get_assigned_applinks(client, user_id)
+    assert {:ok, %{}, _env} = Okta.Users.get_assigned_applinks(client, user_id)
   end
 
   test "get_groups_for_user/2 requests correctly", %{
@@ -63,7 +63,7 @@ defmodule Okta.UsersFindTest do
         {:ok, Tesla.Mock.json(%{}, status: 200)}
     end)
 
-    assert {:ok, result} = Okta.Users.get_groups_for_user(client, user_id)
+    assert {:ok, %{}, _env} = Okta.Users.get_groups_for_user(client, user_id)
   end
 
   test "list_users/1 requests correctly", %{client: client, base_url: base_url} do
@@ -75,7 +75,7 @@ defmodule Okta.UsersFindTest do
         {:ok, Tesla.Mock.json(%{}, status: 200)}
     end)
 
-    assert {:ok, result} = Okta.Users.list_users(client)
+    assert {:ok, %{}, _env} = Okta.Users.list_users(client)
   end
 
   test "list_users/2 requests correctly", %{client: client, base_url: base_url} do
@@ -90,7 +90,7 @@ defmodule Okta.UsersFindTest do
         {:ok, Tesla.Mock.json(%{}, status: 200)}
     end)
 
-    assert {:ok, result} = Okta.Users.list_users(client, limit: limit)
+    assert {:ok, %{}, _env} = Okta.Users.list_users(client, limit: limit)
   end
 
   test "search_users/2 requests correctly", %{client: client, base_url: base_url} do
@@ -105,7 +105,7 @@ defmodule Okta.UsersFindTest do
         {:ok, Tesla.Mock.json(%{}, status: 200)}
     end)
 
-    assert {:ok, result} = Okta.Users.search_users(client, search_term)
+    assert {:ok, %{}, _env} = Okta.Users.search_users(client, search_term)
   end
 
   test "filter_users/2 requests correctly", %{client: client, base_url: base_url} do
@@ -114,13 +114,13 @@ defmodule Okta.UsersFindTest do
     Okta.Tesla.Mock
     |> Mox.expect(:call, fn
       request, _opts ->
-        assert [filter: filter] = request.query
+        assert [filter: ^filter] = request.query
         assert :get == request.method
         assert "#{base_url}/api/v1/users" == request.url
         {:ok, Tesla.Mock.json(%{}, status: 200)}
     end)
 
-    assert {:ok, result} = Okta.Users.filter_users(client, filter)
+    assert {:ok, %{}, _env} = Okta.Users.filter_users(client, filter)
   end
 
   test "list_active_users/1 requests correctly", %{client: client, base_url: base_url} do
@@ -129,13 +129,13 @@ defmodule Okta.UsersFindTest do
     Okta.Tesla.Mock
     |> Mox.expect(:call, fn
       request, _opts ->
-        assert [filter: filter] = request.query
+        assert [filter: ^filter] = request.query
         assert :get == request.method
         assert "#{base_url}/api/v1/users" == request.url
         {:ok, Tesla.Mock.json(%{}, status: 200)}
     end)
 
-    assert {:ok, result} = Okta.Users.list_active_users(client)
+    assert {:ok, %{}, _env} = Okta.Users.list_active_users(client)
   end
 
   test "list_staged_users/1 requests correctly", %{client: client, base_url: base_url} do
@@ -144,13 +144,13 @@ defmodule Okta.UsersFindTest do
     Okta.Tesla.Mock
     |> Mox.expect(:call, fn
       request, _opts ->
-        assert [filter: filter] = request.query
+        assert [filter: ^filter] = request.query
         assert :get == request.method
         assert "#{base_url}/api/v1/users" == request.url
         {:ok, Tesla.Mock.json(%{}, status: 200)}
     end)
 
-    assert {:ok, result} = Okta.Users.list_staged_users(client)
+    assert {:ok, %{}, _env} = Okta.Users.list_staged_users(client)
   end
 
   test "list_recovery_users/1 requests correctly", %{client: client, base_url: base_url} do
@@ -159,13 +159,13 @@ defmodule Okta.UsersFindTest do
     Okta.Tesla.Mock
     |> Mox.expect(:call, fn
       request, _opts ->
-        assert [filter: filter] = request.query
+        assert [filter: ^filter] = request.query
         assert :get == request.method
         assert "#{base_url}/api/v1/users" == request.url
         {:ok, Tesla.Mock.json(%{}, status: 200)}
     end)
 
-    assert {:ok, result} = Okta.Users.list_recovery_users(client)
+    assert {:ok, %{}, _env} = Okta.Users.list_recovery_users(client)
   end
 
   test "list_deprovisioned_users/1 requests correctly", %{client: client, base_url: base_url} do
@@ -174,13 +174,13 @@ defmodule Okta.UsersFindTest do
     Okta.Tesla.Mock
     |> Mox.expect(:call, fn
       request, _opts ->
-        assert [filter: filter] = request.query
+        assert [filter: ^filter] = request.query
         assert :get == request.method
         assert "#{base_url}/api/v1/users" == request.url
         {:ok, Tesla.Mock.json(%{}, status: 200)}
     end)
 
-    assert {:ok, result} = Okta.Users.list_deprovisioned_users(client)
+    assert {:ok, %{}, _env} = Okta.Users.list_deprovisioned_users(client)
   end
 
   test "list_password_expired_users/1 requests correctly", %{client: client, base_url: base_url} do
@@ -189,13 +189,13 @@ defmodule Okta.UsersFindTest do
     Okta.Tesla.Mock
     |> Mox.expect(:call, fn
       request, _opts ->
-        assert [filter: filter] = request.query
+        assert [filter: ^filter] = request.query
         assert :get == request.method
         assert "#{base_url}/api/v1/users" == request.url
         {:ok, Tesla.Mock.json(%{}, status: 200)}
     end)
 
-    assert {:ok, result} = Okta.Users.list_password_expired_users(client)
+    assert {:ok, %{}, _env} = Okta.Users.list_password_expired_users(client)
   end
 
   test "list_provisioned_users/1 requests correctly", %{client: client, base_url: base_url} do
@@ -204,13 +204,13 @@ defmodule Okta.UsersFindTest do
     Okta.Tesla.Mock
     |> Mox.expect(:call, fn
       request, _opts ->
-        assert [filter: filter] = request.query
+        assert [filter: ^filter] = request.query
         assert :get == request.method
         assert "#{base_url}/api/v1/users" == request.url
         {:ok, Tesla.Mock.json(%{}, status: 200)}
     end)
 
-    assert {:ok, result} = Okta.Users.list_provisioned_users(client)
+    assert {:ok, %{}, _env} = Okta.Users.list_provisioned_users(client)
   end
 
   test "list_locked_users/1 requests correctly", %{client: client, base_url: base_url} do
@@ -219,13 +219,13 @@ defmodule Okta.UsersFindTest do
     Okta.Tesla.Mock
     |> Mox.expect(:call, fn
       request, _opts ->
-        assert [filter: filter] = request.query
+        assert [filter: ^filter] = request.query
         assert :get == request.method
         assert "#{base_url}/api/v1/users" == request.url
         {:ok, Tesla.Mock.json(%{}, status: 200)}
     end)
 
-    assert {:ok, result} = Okta.Users.list_locked_users(client)
+    assert {:ok, %{}, _env} = Okta.Users.list_locked_users(client)
   end
 
   test "list_users_updated_after/1 requests correctly", %{client: client, base_url: base_url} do
@@ -236,12 +236,12 @@ defmodule Okta.UsersFindTest do
     Okta.Tesla.Mock
     |> Mox.expect(:call, fn
       request, _opts ->
-        assert [filter: filter] = request.query
+        assert [filter: ^filter] = request.query
         assert :get == request.method
         assert "#{base_url}/api/v1/users" == request.url
         {:ok, Tesla.Mock.json(%{}, status: 200)}
     end)
 
-    assert {:ok, result} = Okta.Users.list_users_updated_after(client, now)
+    assert {:ok, %{}, _env} = Okta.Users.list_users_updated_after(client, now)
   end
 end
