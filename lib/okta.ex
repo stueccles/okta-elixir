@@ -54,7 +54,7 @@ defmodule Okta do
       {Tesla.Middleware.Headers, [{"authorization", "SSWS " <> api_key}]}
     ]
 
-    Tesla.client(middleware, Application.fetch_env!(:okta, :tesla)[:adapter])
+    Tesla.client(middleware, Application.fetch_env!(:okta_api, :tesla)[:adapter])
   end
 
   @spec result({:ok, Tesla.Env.t()}) :: result()

@@ -1,3 +1,3 @@
 import Config
 
-config :okta, :tesla, adapter: Okta.Tesla.Mock
+config :okta_api, :tesla, adapter: Okta.Tesla.Mock
