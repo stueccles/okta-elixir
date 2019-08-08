@@ -55,7 +55,7 @@ defmodule Okta do
     ]
 
     adapter =
-      Application.get_env(:segment, :tesla)[:adapter] ||
+      Application.get_env(:okta_api, :tesla)[:adapter] ||
         {Tesla.Adapter.Hackney, [recv_timeout: 30_000]}
 
     Tesla.client(middleware, adapter)

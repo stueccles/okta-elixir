@@ -4,7 +4,7 @@ defmodule Okta.MixProject do
   def project do
     [
       app: :okta_api,
-      version: "0.1.2",
+      version: "0.1.3",
       elixir: "~> 1.9-rc",
       start_permanent: Mix.env() == :prod,
       description: description(),
@@ -18,7 +18,7 @@ defmodule Okta.MixProject do
   # Run "mix help compile.app" to learn about applications.
   def application do
     [
-      extra_applications: [:hackney, :logger]
+      extra_applications: [:tesla, :hackney, :logger]
     ]
   end
 
