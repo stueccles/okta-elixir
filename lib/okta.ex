@@ -25,14 +25,16 @@ defmodule Okta do
       }
 
       case Okta.Users.create_user(client, profile) do
-        {:ok, %{"id" => id, "status" => status}, _env} -> update_user(%{okta_id: id, okta_status: status})
-        {:error, %{"errorSummary" => errorSummary}, _env} -> Logger.error(errorSummary)
+        {:ok, %{"id" => id, "status" => status}, _env} ->
+          update_user(%{okta_id: id, okta_status: status})
+        {:error, %{"errorSummary" => errorSummary}, _env} ->
+          Logger.error(errorSummary)
       end
 
   ## Installation
 
-  If [available in Hex](https://hex.pm/docs/publish), the package can be installed
-  by adding `okta` to your list of dependencies in `mix.exs`:
+  If [available in Hex](https://hex.pm/docs/publish), the package can be
+  installed by adding `okta` to your list of dependencies in `mix.exs`:
 
       def deps do
         [
