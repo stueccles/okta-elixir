@@ -12,8 +12,6 @@ defmodule Okta.Groups do
   {:ok, result, _env} = Okta.Groups.list_groups(client)
   ```
   """
-  @type client() :: Tesla.Client.t()
-  @type result() :: {:ok, map(), Tesla.Env.t()} | {:error, map(), any}
 
   @groups_url "/api/v1/groups"
 
@@ -32,7 +30,7 @@ defmodule Okta.Groups do
 
   [https://developer.okta.com/docs/reference/api/groups/#add-group](https://developer.okta.com/docs/reference/api/groups/#add-group)
   """
-  @spec create_group(client(), map()) :: result()
+  @spec create_group(Okta.client(), map()) :: Okta.result()
   def create_group(client, profile) do
     Tesla.post(client, @groups_url, %{profile: profile}) |> Okta.result()
   end
@@ -44,7 +42,7 @@ defmodule Okta.Groups do
 
   [https://developer.okta.com/docs/reference/api/groups/#update-group](https://developer.okta.com/docs/reference/api/groups/#update-group)
   """
-  @spec update_group(client(), String.t(), map()) :: result()
+  @spec update_group(Okta.client(), String.t(), map()) :: Okta.result()
   def update_group(client, group_id, profile) do
     Tesla.put(client, @groups_url <> "/#{group_id}", %{profile: profile}) |> Okta.result()
   end
@@ -54,7 +52,7 @@ defmodule Okta.Groups do
 
   [https://developer.okta.com/docs/reference/api/groups/#remove-group](https://developer.okta.com/docs/reference/api/groups/#remove-group)
   """
-  @spec delete_group(client(), String.t()) :: result()
+  @spec delete_group(Okta.client(), String.t()) :: Okta.result()
   def delete_group(client, group_id) do
     Tesla.delete(client, @groups_url <> "/#{group_id}") |> Okta.result()
   end
@@ -64,7 +62,7 @@ defmodule Okta.Groups do
 
   [https://developer.okta.com/docs/reference/api/groups/#get-group](https://developer.okta.com/docs/reference/api/groups/#get-group)
   """
-  @spec get_group(client(), String.t()) :: result()
+  @spec get_group(Okta.client(), String.t()) :: Okta.result()
   def get_group(client, group_id) do
     Tesla.get(client, @groups_url <> "/#{group_id}") |> Okta.result()
   end
@@ -74,7 +72,7 @@ defmodule Okta.Groups do
 
   [https://developer.okta.com/docs/reference/api/groups/#list-group-members](https://developer.okta.com/docs/reference/api/groups/#list-group-members)
   """
-  @spec list_group_members(client(), String.t()) :: result()
+  @spec list_group_members(Okta.client(), String.t()) :: Okta.result()
   def list_group_members(client, group_id, opt \\ []) do
     Tesla.get(client, @groups_url <> "/#{group_id}/users", query: opt) |> Okta.result()
   end
@@ -84,7 +82,7 @@ defmodule Okta.Groups do
 
   [https://developer.okta.com/docs/reference/api/groups/#list-assigned-applications](https://developer.okta.com/docs/reference/api/groups/#list-assigned-applications)
   """
-  @spec list_group_apps(client(), String.t()) :: result()
+  @spec list_group_apps(Okta.client(), String.t()) :: Okta.result()
   def list_group_apps(client, group_id, opt \\ []) do
     Tesla.get(client, @groups_url <> "/#{group_id}/apps", query: opt) |> Okta.result()
   end
@@ -94,7 +92,7 @@ defmodule Okta.Groups do
 
   [https://developer.okta.com/docs/reference/api/groups/#remove-user-from-group](https://developer.okta.com/docs/reference/api/groups/#remove-user-from-group)
   """
-  @spec remove_user_from_group(client(), String.t(), String.t()) :: result()
+  @spec remove_user_from_group(Okta.client(), String.t(), String.t()) :: Okta.result()
   def remove_user_from_group(client, group_id, user_id) do
     Tesla.delete(client, @groups_url <> "/#{group_id}/users/#{user_id}") |> Okta.result()
   end
@@ -104,7 +102,7 @@ defmodule Okta.Groups do
 
   [https://developer.okta.com/docs/reference/api/groups/#add-user-to-group](https://developer.okta.com/docs/reference/api/groups/#add-user-to-group)
   """
-  @spec add_user_to_group(client(), String.t(), String.t()) :: result()
+  @spec add_user_to_group(Okta.client(), String.t(), String.t()) :: Okta.result()
   def add_user_to_group(client, group_id, user_id) do
     Tesla.put(client, @groups_url <> "/#{group_id}/users/#{user_id}", "") |> Okta.result()
   end
@@ -125,7 +123,7 @@ defmodule Okta.Groups do
     {:ok, result} = Okta.Users.list_groups(client, q: "Design", limit: 10, after: 200)
   ```
   """
-  @spec list_groups(client(), keyword()) :: result()
+  @spec list_groups(Okta.client(), keyword()) :: Okta.result()
   def list_groups(client, opts \\ []) do
     Tesla.get(client, @groups_url, query: opts) |> Okta.result()
   end
@@ -135,7 +133,7 @@ defmodule Okta.Groups do
 
   [https://developer.okta.com/docs/reference/api/groups/#search-groups](https://developer.okta.com/docs/reference/api/groups/#search-groups)
   """
-  @spec search_groups(client(), String.t(), keyword()) :: result()
+  @spec search_groups(Okta.client(), String.t(), keyword()) :: Okta.result()
   def search_groups(client, name, opts \\ []) do
     list_groups(client, Keyword.merge(opts, q: name))
   end
@@ -147,7 +145,7 @@ defmodule Okta.Groups do
   [https://developer.okta.com/docs/reference/api-overview/#filtering](https://developer.okta.com/docs/reference/api-overview/#filtering)
 
   """
-  @spec filter_groups(client(), String.t(), keyword()) :: result()
+  @spec filter_groups(Okta.client(), String.t(), keyword()) :: Okta.result()
   def filter_groups(client, filter, opts \\ []) do
     list_groups(client, Keyword.merge(opts, filter: filter))
   end
@@ -157,7 +155,7 @@ defmodule Okta.Groups do
 
   [https://developer.okta.com/docs/reference/api/groups/#list-groups-with-type](https://developer.okta.com/docs/reference/api/groups/#list-groups-with-type)
   """
-  @spec list_groups_of_type(client(), String.t(), keyword()) :: result()
+  @spec list_groups_of_type(Okta.client(), String.t(), keyword()) :: Okta.result()
   def list_groups_of_type(client, type, opts \\ []) do
     filter_groups(client, "type eq \"#{type}\"", opts)
   end
@@ -167,7 +165,7 @@ defmodule Okta.Groups do
 
   [https://developer.okta.com/docs/reference/api/groups/#list-groups-with-profile-updated-after-timestamp]([https://developer.okta.com/docs/reference/api/groups/#list-groups-with-profile-updated-after-timestamp])
   """
-  @spec list_groups_profile_updated_after(client(), Calendar.datetime(), keyword()) :: result()
+  @spec list_groups_profile_updated_after(Okta.client(), Calendar.datetime(), keyword()) :: Okta.result()
   def list_groups_profile_updated_after(client, updated_at, opts \\ []) do
     filter_groups(
       client,
@@ -181,7 +179,7 @@ defmodule Okta.Groups do
 
   [https://developer.okta.com/docs/reference/api/groups/#list-groups-with-membership-updated-after-timestamp](https://developer.okta.com/docs/reference/api/groups/#list-groups-with-membership-updated-after-timestamp)
   """
-  @spec list_groups_membership_updated_after(client(), Calendar.datetime(), keyword()) :: result()
+  @spec list_groups_membership_updated_after(Okta.client(), Calendar.datetime(), keyword()) :: Okta.result()
   def list_groups_membership_updated_after(client, updated_at, opts \\ []) do
     filter_groups(
       client,
@@ -195,7 +193,7 @@ defmodule Okta.Groups do
 
   [https://developer.okta.com/docs/reference/api/groups/#list-groups-updated-after-timestamp](https://developer.okta.com/docs/reference/api/groups/#list-groups-updated-after-timestamp)
   """
-  @spec list_groups_updated_after(client(), Calendar.datetime(), keyword()) :: result()
+  @spec list_groups_updated_after(Okta.client(), Calendar.datetime(), keyword()) :: Okta.result()
   def list_groups_updated_after(client, updated_at, opts \\ []) do
     filter_groups(
       client,
