@@ -6,17 +6,15 @@ defmodule Okta.Users do
 
   ## Examples
 
-  ```
-  client = Okta.Client("https://dev-000000.okta.com", "thisismykeycreatedinokta")
-
-  {:ok, result, _env} = Okta.Users.list_users(client)
-  ```
+      client = Okta.Client("https://dev-000000.okta.com", "thisismykeycreatedinokta")
+      {:ok, result, _env} = Okta.Users.list_users(client)
   """
 
   @users_url "/api/v1/users"
 
   @doc """
-  Fetch a user by id, login, or login shortname if the short name is unambiguous.
+  Fetch a user by id, login, or login shortname if the short name is
+  unambiguous.
 
   [https://developer.okta.com/docs/reference/api/users/#get-user](https://developer.okta.com/docs/reference/api/users/#get-user)
   """
@@ -26,7 +24,7 @@ defmodule Okta.Users do
   end
 
   @doc """
-  Fetches the current user linked to API token or session cookie
+  Fetches the current user linked to API token or session cookie.
 
   [https://developer.okta.com/docs/reference/api/users/#get-current-user](https://developer.okta.com/docs/reference/api/users/#get-current-user)
   """
@@ -36,7 +34,8 @@ defmodule Okta.Users do
   end
 
   @doc """
-  Fetches appLinks for all direct or indirect (via group membership) assigned applications
+  Fetches appLinks for all direct or indirect (via group membership) assigned
+  applications.
 
   [https://developer.okta.com/docs/reference/api/users/#get-assigned-app-links](https://developer.okta.com/docs/reference/api/users/#get-assigned-app-links)
   """
@@ -46,7 +45,7 @@ defmodule Okta.Users do
   end
 
   @doc """
-  Fetches the groups of which the user is a member
+  Fetches the groups of which the user is a member.
 
   [https://developer.okta.com/docs/reference/api/users/#get-user-s-groups](https://developer.okta.com/docs/reference/api/users/#get-user-s-groups)
   """
@@ -56,8 +55,9 @@ defmodule Okta.Users do
   end
 
   @doc """
-  Removes all active identity provider sessions. This forces the user to authenticate on the next operation.
-  Optionally revokes OpenID Connect and OAuth refresh and access tokens issued to the user.
+  Removes all active identity provider sessions. This forces the user to
+  authenticate on the next operation. Optionally revokes OpenID Connect and
+  OAuth refresh and access tokens issued to the user.
 
   [https://developer.okta.com/docs/reference/api/users/#clear-user-sessions](https://developer.okta.com/docs/reference/api/users/#clear-user-sessions)
 
@@ -71,18 +71,17 @@ defmodule Okta.Users do
   @doc """
   Lists users in your organization with pagination in most cases
 
-  A subset of users can be returned that match a supported filter expression or search criteria.
+  A subset of users can be returned that match a supported filter expression or
+  search criteria.
 
   see
   [https://developer.okta.com/docs/reference/api/users/#list-users](https://developer.okta.com/docs/reference/api/users/#list-users)
-
-  for optional parameters that can be passed in
+  for optional parameters that can be passed in.
 
   ##Example
 
-  ```
-    {:ok, result} = Okta.Users.list_users(client, q: "Noah", limit: 10, after: 200)
-  ```
+      {:ok, result} = Okta.Users.list_users(client, q: "Noah", limit: 10, after: 200)
+
   """
   @spec list_users(Okta.client(), keyword()) :: Okta.result()
   def list_users(client, opts \\ []) do
@@ -92,7 +91,9 @@ defmodule Okta.Users do
   @doc """
   Shortcut method to use list_users with a `q` parameter.
 
-  Finds users who match the specified query with a simple lookup of users by name, for example when creating a people picker. The value of query is matched against firstName, lastName, or email.
+  Finds users who match the specified query with a simple lookup of users by
+  name, for example when creating a people picker. The value of query is matched
+  against firstName, lastName, or email.
 
   [https://developer.okta.com/docs/reference/api/users/#find-users](https://developer.okta.com/docs/reference/api/users/#find-users)
   """
@@ -102,11 +103,12 @@ defmodule Okta.Users do
   end
 
   @doc """
-  Shortcut method to use list_users with a `search` parameter. Searches for users based on the properties specified in the search_term
+  Shortcut method to use list_users with a `search` parameter. Searches for
+  users based on the properties specified in the search_term.
 
   see
   [https://developer.okta.com/docs/reference/api/users/#list-users-with-search](https://developer.okta.com/docs/reference/api/users/#list-users-with-search)
-  for details
+  for details.
   """
   @spec search_users(Okta.client(), String.t(), keyword()) :: Okta.result()
   def search_users(client, search_term, opts \\ []) do
@@ -114,11 +116,12 @@ defmodule Okta.Users do
   end
 
   @doc """
-  Shortcut method to use list_users with a `filter` parameter. Lists all users that match the filter criteria
+  Shortcut method to use list_users with a `filter` parameter. Lists all users
+  that match the filter criteria.
 
   see
   [https://developer.okta.com/docs/reference/api/users/#list-users-with-a-filter](https://developer.okta.com/docs/reference/api/users/#list-users-with-a-filter)
-  for details
+  for details.
 
   and [https://developer.okta.com/docs/reference/api-overview/#filtering](https://developer.okta.com/docs/reference/api-overview/#filtering) on how Okta supports filters
   """
@@ -128,7 +131,7 @@ defmodule Okta.Users do
   end
 
   @doc """
-  Lists all active users. ie. Users that have a status of ACTIVE
+  Lists all active users. ie. Users that have a status of `ACTIVE`.
   """
   @spec list_active_users(Okta.client(), keyword()) :: Okta.result()
   def list_active_users(client, opts \\ []) do
@@ -136,7 +139,7 @@ defmodule Okta.Users do
   end
 
   @doc """
-  Lists all staged users. ie. Users that have a status of STAGED
+  Lists all staged users. ie. Users that have a status of `STAGED`.
   """
   @spec list_staged_users(Okta.client(), keyword()) :: Okta.result()
   def list_staged_users(client, opts \\ []) do
@@ -144,7 +147,7 @@ defmodule Okta.Users do
   end
 
   @doc """
-  Lists all password recovery users. ie. Users that have a status of RECOVERY
+  Lists all password recovery users. ie. Users that have a status of `RECOVERY`.
   """
   @spec list_recovery_users(Okta.client()) :: Okta.result()
   @spec list_recovery_users(Okta.client(), keyword()) :: Okta.result()
@@ -153,7 +156,7 @@ defmodule Okta.Users do
   end
 
   @doc """
-  Lists all deprovisioned users. ie. Users that have a status of DEPROVISIONED
+  Lists all deprovisioned users. ie. Users that have a status of `DEPROVISIONED`.
   """
   @spec list_deprovisioned_users(Okta.client(), keyword()) :: Okta.result()
   def list_deprovisioned_users(client, opts \\ []) do
@@ -161,7 +164,7 @@ defmodule Okta.Users do
   end
 
   @doc """
-  Lists all password expired users. ie. Users that have a status of PASSWORD_EXPIRED
+  Lists all password expired users. ie. Users that have a status of `PASSWORD_EXPIRED`.
   """
   @spec list_password_expired_users(Okta.client()) :: Okta.result()
   @spec list_password_expired_users(Okta.client(), keyword()) :: Okta.result()
@@ -170,7 +173,7 @@ defmodule Okta.Users do
   end
 
   @doc """
-  Lists all provisioned users. ie. Users that have a status of PROVISIONED
+  Lists all provisioned users. ie. Users that have a status of `PROVISIONED`.
   """
   @spec list_provisioned_users(Okta.client(), keyword()) :: Okta.result()
   def list_provisioned_users(client, opts \\ []) do
@@ -178,7 +181,7 @@ defmodule Okta.Users do
   end
 
   @doc """
-  Lists all locked out users. ie. Users that have a status of LOCKED_OUT
+  Lists all locked out users. ie. Users that have a status of `LOCKED_OUT`.
   """
   @spec list_locked_users(Okta.client(), keyword()) :: Okta.result()
   def list_locked_users(client, opts \\ []) do
@@ -198,7 +201,7 @@ defmodule Okta.Users do
   end
 
   @doc """
-  Creates a new user in your Okta organization with or without credentials
+  Creates a new user in your Okta organization with or without credentials.
 
   [https://developer.okta.com/docs/reference/api/users/#create-user](https://developer.okta.com/docs/reference/api/users/#create-user)
   """
@@ -236,7 +239,7 @@ defmodule Okta.Users do
   end
 
   @doc """
-  Creates a user without a recovery question & answer
+  Creates a user without a recovery question & answer.
 
   [https://developer.okta.com/docs/reference/api/users/#create-user-with-password](https://developer.okta.com/docs/reference/api/users/#create-user-with-password)
   """
@@ -251,7 +254,8 @@ defmodule Okta.Users do
   end
 
   @doc """
-  Creates a new passwordless user with a SOCIAL or FEDERATION authentication provider that must be authenticated via a trusted Identity Provider
+  Creates a new passwordless user with a `SOCIAL` or `FEDERATION` authentication
+  provider that must be authenticated via a trusted Identity Provider.
 
   [https://developer.okta.com/docs/reference/api/users/#create-user-with-authentication-provider](https://developer.okta.com/docs/reference/api/users/#create-user-with-authentication-provider)
   """
@@ -279,7 +283,8 @@ defmodule Okta.Users do
   @doc """
   Sets passwords without validating existing user credentials
 
-  This is an administrative operation. For an operation that requires validation see `change_password/4`
+  This is an administrative operation. For an operation that requires validation
+  see `change_password/4`.
 
   [https://developer.okta.com/docs/reference/api/users/#set-password](https://developer.okta.com/docs/reference/api/users/#set-password)
 
@@ -293,7 +298,8 @@ defmodule Okta.Users do
   @doc """
   Changes a user's password by validating the user's current password
 
-  This operation can only be performed on users in STAGED, ACTIVE, PASSWORD_EXPIRED, or RECOVERY status that have a valid password credential
+  This operation can only be performed on users in `STAGED`, `ACTIVE`,
+  `PASSWORD_EXPIRED`, or `RECOVERY` status that have a valid password credential.
 
   [https://developer.okta.com/docs/reference/api/users/#change-password](https://developer.okta.com/docs/reference/api/users/#change-password)
   """
@@ -311,9 +317,10 @@ defmodule Okta.Users do
   end
 
   @doc """
-  Sets recovery question and answer without validating existing user credentials
+  Sets recovery question and answer without validating existing user credentials.
 
-  This is an administrative operation. For an operation that requires validation see `change_recovery_credential/5`
+  This is an administrative operation. For an operation that requires validation
+  see `change_recovery_credential/5`
 
   [https://developer.okta.com/docs/reference/api/users/#set-recovery-question-answer](https://developer.okta.com/docs/reference/api/users/#set-recovery-question-answer)
   """
@@ -326,9 +333,11 @@ defmodule Okta.Users do
   end
 
   @doc """
-  Changes a user's recovery question & answer credential by validating the user's current password
+  Changes a user's recovery question & answer credential by validating the
+  user's current password.
 
-  This operation can only be performed on users in STAGED, ACTIVE or RECOVERY status that have a valid password credential
+  This operation can only be performed on users in `STAGED`, `ACTIVE` or
+  `RECOVERY` status that have a valid password credential.
 
   [https://developer.okta.com/docs/reference/api/users/#change-recovery-question](https://developer.okta.com/docs/reference/api/users/#change-recovery-question)
   """
@@ -342,13 +351,17 @@ defmodule Okta.Users do
   end
 
   @doc """
-  Activates a user
+  Activates a user.
 
-  This operation can only be performed on users with a STAGED status. Activation of a user is an asynchronous operation.
+  This operation can only be performed on users with a `STAGED` status.
+  Activation of a user is an asynchronous operation.
 
-  The user's transitioningToStatus property has a value of ACTIVE during activation to indicate that the user hasn't completed the asynchronous operation.
-  The user's status is ACTIVE when the activation process is complete.
-  Users who don't have a password must complete the welcome flow by visiting the activation link to complete the transition to ACTIVE status.
+  The user's transitioningToStatus property has a value of `ACTIVE` during
+  activation to indicate that the user hasn't completed the asynchronous
+  operation.
+  The user's status is `ACTIVE` when the activation process is complete.
+  Users who don't have a password must complete the welcome flow by visiting
+  the activation link to complete the transition to `ACTIVE` status.
 
   [https://developer.okta.com/docs/reference/api/users/#activate-user](https://developer.okta.com/docs/reference/api/users/#activate-user)
   """
@@ -364,11 +377,14 @@ defmodule Okta.Users do
   end
 
   @doc """
-  Reactivates a user
+  Reactivates a user.
 
-  This operation can only be performed on users with a PROVISIONED status. This operation restarts the activation workflow if for some reason the user activation was not completed when using the activationToken from Activate User.
+  This operation can only be performed on users with a `PROVISIONED` status.
+  This operation restarts the activation workflow if for some reason the user
+  activation was not completed when using the `activationToken` from Activate User.
 
-  Users that don't have a password must complete the flow by completing Reset Password and MFA enrollment steps to transition the user to ACTIVE status.
+  Users that don't have a password must complete the flow by completing Reset
+  Password and MFA enrollment steps to transition the user to `ACTIVE` status.
 
   [https://developer.okta.com/docs/reference/api/users/#reactivate-user](https://developer.okta.com/docs/reference/api/users/#reactivate-user)
   """
@@ -384,13 +400,16 @@ defmodule Okta.Users do
   end
 
   @doc """
+  Deactivates a user.
 
-  Deactivates a user
+  This operation can only be performed on users that do not have a
+  `DEPROVISIONED` status. Deactivation of a user is an asynchronous operation.
 
-  This operation can only be performed on users that do not have a DEPROVISIONED status. Deactivation of a user is an asynchronous operation.
-
-  The user's transitioningToStatus property is DEPROVISIONED during deactivation to indicate that the user hasn't completed the asynchronous operation.
-  The user's status is DEPROVISIONED when the deactivation process is complete.
+  The user's transitioningToStatus property is `DEPROVISIONED` during
+  deactivation to indicate that the user hasn't completed the asynchronous
+  operation.
+  The user's status is `DEPROVISIONED` when the deactivation process is
+  complete.
 
   [https://developer.okta.com/docs/reference/api/users/#deactivate-user](https://developer.okta.com/docs/reference/api/users/#deactivate-user)
   """
@@ -403,7 +422,8 @@ defmodule Okta.Users do
   end
 
   @doc """
-  Unlocks a user with a LOCKED_OUT status and returns them to ACTIVE status. Users will be able to login with their current password.
+  Unlocks a user with a `LOCKED_OUT` status and returns them to ACTIVE status.
+  Users will be able to login with their current password.
 
   [https://developer.okta.com/docs/reference/api/users/#unlock-user](https://developer.okta.com/docs/reference/api/users/#unlock-user)
   """
@@ -413,9 +433,12 @@ defmodule Okta.Users do
   end
 
   @doc """
-  This operation transitions the user status to PASSWORD_EXPIRED so that the user is required to change their password at their next login.
+  This operation transitions the user status to PASSWORD_EXPIRED so that the
+  user is required to change their password at their next login.
 
-  If tempPassword is included in the request, the user's password is reset to a temporary password that is returned, and then the temporary password is expired.
+  If tempPassword is included in the request, the user's password is reset to a
+  temporary password that is returned, and then the temporary password is
+  expired.
 
   [https://developer.okta.com/docs/reference/api/users/#expire-password](https://developer.okta.com/docs/reference/api/users/#expire-password)
   """
@@ -428,9 +451,13 @@ defmodule Okta.Users do
   end
 
   @doc """
-  Generates a one-time token (OTT) that can be used to reset a user's password. The OTT link can be automatically emailed to the user or returned to the API caller and distributed using a custom flow.
+  Generates a one-time token (OTT) that can be used to reset a user's password.
+  The OTT link can be automatically emailed to the user or returned to the API
+  caller and distributed using a custom flow.
 
-  This operation will transition the user to the status of RECOVERY and the user will not be able to login or initiate a forgot password flow until they complete the reset flow.
+  This operation will transition the user to the status of `RECOVERY` and the
+  user will not be able to login or initiate a forgot password flow until they
+  complete the reset flow.
 
   [https://developer.okta.com/docs/reference/api/users/#reset-password](https://developer.okta.com/docs/reference/api/users/#reset-password)
   """
@@ -448,7 +475,8 @@ defmodule Okta.Users do
   @doc """
   Suspends a user
 
-  This operation can only be performed on users with an ACTIVE status. The user has a status of SUSPENDED when the process is complete.
+  This operation can only be performed on users with an `ACTIVE` status. The
+  user has a status of `SUSPENDED` when the process is complete.
 
 
   [https://developer.okta.com/docs/reference/api/users/#suspend-user](https://developer.okta.com/docs/reference/api/users/#suspend-user)
@@ -459,7 +487,7 @@ defmodule Okta.Users do
   end
 
   @doc """
-  Unsuspends a user and returns them to the ACTIVE state
+  Unsuspends a user and returns them to the `ACTIVE` state.
 
   [https://developer.okta.com/docs/reference/api/users/#unsuspend-user](https://developer.okta.com/docs/reference/api/users/#unsuspend-user)
   """
@@ -469,7 +497,8 @@ defmodule Okta.Users do
   end
 
   @doc """
-  Deletes a user permanently. This operation can only be performed on users that have a DEPROVISIONED status. This action cannot be recovered!
+  Deletes a user permanently. This operation can only be performed on users
+  that have a `DEPROVISIONED` status. This action cannot be recovered!.
 
   [https://developer.okta.com/docs/reference/api/users/#delete-user](https://developer.okta.com/docs/reference/api/users/#delete-user)
   """
@@ -480,10 +509,11 @@ defmodule Okta.Users do
   end
 
   @doc """
-  Generates a one-time token (OTT) that can be used to reset a user's password
+  Generates a one-time token (OTT) that can be used to reset a user's password.
 
-  The user will be required to validate their security question's answer when visiting the reset link.
-  This operation can only be performed on users with an ACTIVE status and a valid recovery question credential.
+  The user will be required to validate their security question's answer when
+  visiting the reset link. This operation can only be performed on users with
+  an `ACTIVE` status and a valid recovery question credential.
 
   [https://developer.okta.com/docs/reference/api/users/#forgot-password](https://developer.okta.com/docs/reference/api/users/#forgot-password)
   """
@@ -499,7 +529,8 @@ defmodule Okta.Users do
   end
 
   @doc """
-  Sets a new password for a user by validating the user's answer to their current recovery question
+  Sets a new password for a user by validating the user's answer to their
+  current recovery question.
 
   [https://developer.okta.com/docs/reference/api/users/#forgot-password](https://developer.okta.com/docs/reference/api/users/#forgot-password)
   """
