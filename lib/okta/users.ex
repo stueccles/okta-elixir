@@ -13,9 +13,6 @@ defmodule Okta.Users do
   ```
   """
 
-  @type client() :: Tesla.Client.t()
-  @type result() :: {:ok, map(), Tesla.Env.t()} | {:error, map(), any}
-
   @users_url "/api/v1/users"
 
   @doc """
@@ -23,7 +20,7 @@ defmodule Okta.Users do
 
   [https://developer.okta.com/docs/reference/api/users/#get-user](https://developer.okta.com/docs/reference/api/users/#get-user)
   """
-  @spec get_user(client(), String.t()) :: result()
+  @spec get_user(Okta.client(), String.t()) :: Okta.result()
   def get_user(client, user) do
     Tesla.get(client, @users_url <> "/#{user}") |> Okta.result()
   end
@@ -33,7 +30,7 @@ defmodule Okta.Users do
 
   [https://developer.okta.com/docs/reference/api/users/#get-current-user](https://developer.okta.com/docs/reference/api/users/#get-current-user)
   """
-  @spec get_current_user(client()) :: result()
+  @spec get_current_user(Okta.client()) :: Okta.result()
   def get_current_user(client) do
     Tesla.get(client, @users_url <> "/me") |> Okta.result()
   end
@@ -43,7 +40,7 @@ defmodule Okta.Users do
 
   [https://developer.okta.com/docs/reference/api/users/#get-assigned-app-links](https://developer.okta.com/docs/reference/api/users/#get-assigned-app-links)
   """
-  @spec get_assigned_applinks(client(), String.t()) :: result()
+  @spec get_assigned_applinks(Okta.client(), String.t()) :: Okta.result()
   def get_assigned_applinks(client, user_id) do
     Tesla.get(client, @users_url <> "/#{user_id}" <> "/appLinks") |> Okta.result()
   end
@@ -53,7 +50,7 @@ defmodule Okta.Users do
 
   [https://developer.okta.com/docs/reference/api/users/#get-user-s-groups](https://developer.okta.com/docs/reference/api/users/#get-user-s-groups)
   """
-  @spec get_groups_for_user(client(), String.t()) :: result()
+  @spec get_groups_for_user(Okta.client(), String.t()) :: Okta.result()
   def get_groups_for_user(client, user_id) do
     Tesla.get(client, @users_url <> "/#{user_id}" <> "/groups") |> Okta.result()
   end
@@ -65,7 +62,7 @@ defmodule Okta.Users do
   [https://developer.okta.com/docs/reference/api/users/#clear-user-sessions](https://developer.okta.com/docs/reference/api/users/#clear-user-sessions)
 
   """
-  @spec clear_user_sessions(client(), String.t(), boolean()) :: result()
+  @spec clear_user_sessions(Okta.client(), String.t(), boolean()) :: Okta.result()
   def clear_user_sessions(client, user_id, oauth_tokens \\ false) do
     Tesla.delete(client, @users_url <> "/#{user_id}", query: [oauthTokens: oauth_tokens])
     |> Okta.result()
@@ -87,7 +84,7 @@ defmodule Okta.Users do
     {:ok, result} = Okta.Users.list_users(client, q: "Noah", limit: 10, after: 200)
   ```
   """
-  @spec list_users(client(), keyword()) :: result()
+  @spec list_users(Okta.client(), keyword()) :: Okta.result()
   def list_users(client, opts \\ []) do
     Tesla.get(client, @users_url, query: opts) |> Okta.result()
   end
@@ -99,7 +96,7 @@ defmodule Okta.Users do
 
   [https://developer.okta.com/docs/reference/api/users/#find-users](https://developer.okta.com/docs/reference/api/users/#find-users)
   """
-  @spec find_users(client(), String.t(), keyword()) :: result()
+  @spec find_users(Okta.client(), String.t(), keyword()) :: Okta.result()
   def find_users(client, query, opts \\ []) do
     list_users(client, Keyword.merge(opts, q: query))
   end
@@ -111,7 +108,7 @@ defmodule Okta.Users do
   [https://developer.okta.com/docs/reference/api/users/#list-users-with-search](https://developer.okta.com/docs/reference/api/users/#list-users-with-search)
   for details
   """
-  @spec search_users(client(), String.t(), keyword()) :: result()
+  @spec search_users(Okta.client(), String.t(), keyword()) :: Okta.result()
   def search_users(client, search_term, opts \\ []) do
     list_users(client, Keyword.merge(opts, search: search_term))
   end
@@ -125,7 +122,7 @@ defmodule Okta.Users do
 
   and [https://developer.okta.com/docs/reference/api-overview/#filtering](https://developer.okta.com/docs/reference/api-overview/#filtering) on how Okta supports filters
   """
-  @spec filter_users(client(), String.t(), keyword()) :: result()
+  @spec filter_users(Okta.client(), String.t(), keyword()) :: Okta.result()
   def filter_users(client, filter, opts \\ []) do
     list_users(client, Keyword.merge(opts, filter: filter))
   end
@@ -133,7 +130,7 @@ defmodule Okta.Users do
   @doc """
   Lists all active users. ie. Users that have a status of ACTIVE
   """
-  @spec list_active_users(client(), keyword()) :: result()
+  @spec list_active_users(Okta.client(), keyword()) :: Okta.result()
   def list_active_users(client, opts \\ []) do
     filter_users(client, "status eq \"ACTIVE\"", opts)
   end
@@ -141,7 +138,7 @@ defmodule Okta.Users do
   @doc """
   Lists all staged users. ie. Users that have a status of STAGED
   """
-  @spec list_staged_users(client(), keyword()) :: result()
+  @spec list_staged_users(Okta.client(), keyword()) :: Okta.result()
   def list_staged_users(client, opts \\ []) do
     filter_users(client, "status eq \"STAGED\"", opts)
   end
@@ -149,8 +146,8 @@ defmodule Okta.Users do
   @doc """
   Lists all password recovery users. ie. Users that have a status of RECOVERY
   """
-  @spec list_recovery_users(client()) :: result()
-  @spec list_recovery_users(client(), keyword()) :: result()
+  @spec list_recovery_users(Okta.client()) :: Okta.result()
+  @spec list_recovery_users(Okta.client(), keyword()) :: Okta.result()
   def list_recovery_users(client, opts \\ []) do
     filter_users(client, "status eq \"RECOVERY\"", opts)
   end
@@ -158,7 +155,7 @@ defmodule Okta.Users do
   @doc """
   Lists all deprovisioned users. ie. Users that have a status of DEPROVISIONED
   """
-  @spec list_deprovisioned_users(client(), keyword()) :: result()
+  @spec list_deprovisioned_users(Okta.client(), keyword()) :: Okta.result()
   def list_deprovisioned_users(client, opts \\ []) do
     filter_users(client, "status eq \"DEPROVISIONED\"", opts)
   end
@@ -166,8 +163,8 @@ defmodule Okta.Users do
   @doc """
   Lists all password expired users. ie. Users that have a status of PASSWORD_EXPIRED
   """
-  @spec list_password_expired_users(client()) :: result()
-  @spec list_password_expired_users(client(), keyword()) :: result()
+  @spec list_password_expired_users(Okta.client()) :: Okta.result()
+  @spec list_password_expired_users(Okta.client(), keyword()) :: Okta.result()
   def list_password_expired_users(client, opts \\ []) do
     filter_users(client, "status eq \"PASSWORD_EXPIRED\"", opts)
   end
@@ -175,7 +172,7 @@ defmodule Okta.Users do
   @doc """
   Lists all provisioned users. ie. Users that have a status of PROVISIONED
   """
-  @spec list_provisioned_users(client(), keyword()) :: result()
+  @spec list_provisioned_users(Okta.client(), keyword()) :: Okta.result()
   def list_provisioned_users(client, opts \\ []) do
     filter_users(client, "status eq \"PROVISIONED\"", opts)
   end
@@ -183,7 +180,7 @@ defmodule Okta.Users do
   @doc """
   Lists all locked out users. ie. Users that have a status of LOCKED_OUT
   """
-  @spec list_locked_users(client(), keyword()) :: result()
+  @spec list_locked_users(Okta.client(), keyword()) :: Okta.result()
   def list_locked_users(client, opts \\ []) do
     filter_users(client, "status eq \"LOCKED_OUT\"", opts)
   end
@@ -191,7 +188,7 @@ defmodule Okta.Users do
   @doc """
   Lists all users who are active and were updated after a certain date and time.
   """
-  @spec list_users_updated_after(client(), Calendar.datetime(), keyword()) :: result()
+  @spec list_users_updated_after(Okta.client(), Calendar.datetime(), keyword()) :: Okta.result()
   def list_users_updated_after(client, updated_at, opts \\ []) do
     filter_users(
       client,
@@ -205,7 +202,7 @@ defmodule Okta.Users do
 
   [https://developer.okta.com/docs/reference/api/users/#create-user](https://developer.okta.com/docs/reference/api/users/#create-user)
   """
-  @spec create_user(client(), map(), boolean(), keyword()) :: result()
+  @spec create_user(Okta.client(), map(), boolean(), keyword()) :: Okta.result()
   def create_user(client, profile, activate \\ true, opts \\ []) do
     query_params = [activate: activate]
 
@@ -243,7 +240,7 @@ defmodule Okta.Users do
 
   [https://developer.okta.com/docs/reference/api/users/#create-user-with-password](https://developer.okta.com/docs/reference/api/users/#create-user-with-password)
   """
-  @spec create_user_with_password(client(), map(), String.t(), boolean(), keyword()) :: result()
+  @spec create_user_with_password(Okta.client(), map(), String.t(), boolean(), keyword()) :: Okta.result()
   def create_user_with_password(client, profile, password, activate \\ true, opts \\ []) do
     create_user(
       client,
@@ -258,8 +255,8 @@ defmodule Okta.Users do
 
   [https://developer.okta.com/docs/reference/api/users/#create-user-with-authentication-provider](https://developer.okta.com/docs/reference/api/users/#create-user-with-authentication-provider)
   """
-  @spec create_user_with_provider(client(), map(), String.t(), String.t(), boolean(), keyword()) ::
-          result()
+  @spec create_user_with_provider(Okta.client(), map(), String.t(), String.t(), boolean(), keyword()) ::
+          Okta.result()
   def create_user_with_provider(
         client,
         profile,
@@ -287,7 +284,7 @@ defmodule Okta.Users do
   [https://developer.okta.com/docs/reference/api/users/#set-password](https://developer.okta.com/docs/reference/api/users/#set-password)
 
   """
-  @spec set_password(client(), String.t(), String.t()) :: result()
+  @spec set_password(Okta.client(), String.t(), String.t()) :: Okta.result()
   def set_password(client, user_id, password) do
     Tesla.post(client, @users_url <> "/#{user_id}", %{credentials: password_data(password)})
     |> Okta.result()
@@ -300,7 +297,7 @@ defmodule Okta.Users do
 
   [https://developer.okta.com/docs/reference/api/users/#change-password](https://developer.okta.com/docs/reference/api/users/#change-password)
   """
-  @spec change_password(client(), String.t(), String.t(), String.t(), boolean()) :: result()
+  @spec change_password(Okta.client(), String.t(), String.t(), String.t(), boolean()) :: Okta.result()
   def change_password(client, user_id, old_password, new_password, strict \\ false) do
     Tesla.post(
       client,
@@ -320,7 +317,7 @@ defmodule Okta.Users do
 
   [https://developer.okta.com/docs/reference/api/users/#set-recovery-question-answer](https://developer.okta.com/docs/reference/api/users/#set-recovery-question-answer)
   """
-  @spec set_recovery_credential(client(), String.t(), String.t(), String.t()) :: result()
+  @spec set_recovery_credential(Okta.client(), String.t(), String.t(), String.t()) :: Okta.result()
   def set_recovery_credential(client, user_id, question, answer) do
     Tesla.put(client, @users_url <> "/#{user_id}", %{
       credentials: recovery_data(question, answer)
@@ -335,8 +332,8 @@ defmodule Okta.Users do
 
   [https://developer.okta.com/docs/reference/api/users/#change-recovery-question](https://developer.okta.com/docs/reference/api/users/#change-recovery-question)
   """
-  @spec change_recovery_credential(client(), String.t(), String.t(), String.t(), String.t()) ::
-          result()
+  @spec change_recovery_credential(Okta.client(), String.t(), String.t(), String.t(), String.t()) ::
+          Okta.result()
   def change_recovery_credential(client, user_id, password, question, answer) do
     Tesla.post(client, @users_url <> "/#{user_id}", %{
       credentials: Map.merge(password_data(password), recovery_data(question, answer))
@@ -355,7 +352,7 @@ defmodule Okta.Users do
 
   [https://developer.okta.com/docs/reference/api/users/#activate-user](https://developer.okta.com/docs/reference/api/users/#activate-user)
   """
-  @spec activate_user(client(), String.t(), boolean()) :: result()
+  @spec activate_user(Okta.client(), String.t(), boolean()) :: Okta.result()
   def activate_user(client, user_id, send_email \\ false) do
     Tesla.post(
       client,
@@ -375,7 +372,7 @@ defmodule Okta.Users do
 
   [https://developer.okta.com/docs/reference/api/users/#reactivate-user](https://developer.okta.com/docs/reference/api/users/#reactivate-user)
   """
-  @spec reactivate_user(client(), String.t(), boolean()) :: result()
+  @spec reactivate_user(Okta.client(), String.t(), boolean()) :: Okta.result()
   def reactivate_user(client, user_id, send_email \\ false) do
     Tesla.post(
       client,
@@ -397,7 +394,7 @@ defmodule Okta.Users do
 
   [https://developer.okta.com/docs/reference/api/users/#deactivate-user](https://developer.okta.com/docs/reference/api/users/#deactivate-user)
   """
-  @spec deactivate_user(client(), String.t(), boolean()) :: result()
+  @spec deactivate_user(Okta.client(), String.t(), boolean()) :: Okta.result()
   def deactivate_user(client, user_id, send_email \\ false) do
     Tesla.post(client, @users_url <> "/#{user_id}/lifecycle/deactivate", "",
       query: [sendEmail: send_email]
@@ -410,7 +407,7 @@ defmodule Okta.Users do
 
   [https://developer.okta.com/docs/reference/api/users/#unlock-user](https://developer.okta.com/docs/reference/api/users/#unlock-user)
   """
-  @spec unlock_user(client(), String.t()) :: result()
+  @spec unlock_user(Okta.client(), String.t()) :: Okta.result()
   def unlock_user(client, user_id) do
     Tesla.post(client, @users_url <> "/#{user_id}/lifecycle/unlock", "") |> Okta.result()
   end
@@ -422,7 +419,7 @@ defmodule Okta.Users do
 
   [https://developer.okta.com/docs/reference/api/users/#expire-password](https://developer.okta.com/docs/reference/api/users/#expire-password)
   """
-  @spec expire_passsword(client(), String.t(), boolean()) :: result()
+  @spec expire_passsword(Okta.client(), String.t(), boolean()) :: Okta.result()
   def expire_passsword(client, user_id, temp_password \\ false) do
     Tesla.post(client, @users_url <> "/#{user_id}/lifecycle/expire_password", "",
       query: [tempPassword: temp_password]
@@ -437,7 +434,7 @@ defmodule Okta.Users do
 
   [https://developer.okta.com/docs/reference/api/users/#reset-password](https://developer.okta.com/docs/reference/api/users/#reset-password)
   """
-  @spec reset_password(client(), String.t(), boolean()) :: result()
+  @spec reset_password(Okta.client(), String.t(), boolean()) :: Okta.result()
   def reset_password(client, user_id, send_email \\ false) do
     Tesla.post(
       client,
@@ -456,7 +453,7 @@ defmodule Okta.Users do
 
   [https://developer.okta.com/docs/reference/api/users/#suspend-user](https://developer.okta.com/docs/reference/api/users/#suspend-user)
   """
-  @spec suspend_user(client(), String.t()) :: result()
+  @spec suspend_user(Okta.client(), String.t()) :: Okta.result()
   def suspend_user(client, user_id) do
     Tesla.post(client, @users_url <> "/#{user_id}/lifecycle/suspend", "") |> Okta.result()
   end
@@ -466,7 +463,7 @@ defmodule Okta.Users do
 
   [https://developer.okta.com/docs/reference/api/users/#unsuspend-user](https://developer.okta.com/docs/reference/api/users/#unsuspend-user)
   """
-  @spec unsuspend_user(client(), String.t()) :: result()
+  @spec unsuspend_user(Okta.client(), String.t()) :: Okta.result()
   def unsuspend_user(client, user_id) do
     Tesla.post(client, @users_url <> "/#{user_id}/lifecycle/unsuspend", "") |> Okta.result()
   end
@@ -476,7 +473,7 @@ defmodule Okta.Users do
 
   [https://developer.okta.com/docs/reference/api/users/#delete-user](https://developer.okta.com/docs/reference/api/users/#delete-user)
   """
-  @spec delete_user(client(), String.t(), boolean()) :: result()
+  @spec delete_user(Okta.client(), String.t(), boolean()) :: Okta.result()
   def delete_user(client, user_id, send_email \\ false) do
     Tesla.delete(client, @users_url <> "/#{user_id}", query: [sendEmail: send_email])
     |> Okta.result()
@@ -490,7 +487,7 @@ defmodule Okta.Users do
 
   [https://developer.okta.com/docs/reference/api/users/#forgot-password](https://developer.okta.com/docs/reference/api/users/#forgot-password)
   """
-  @spec forgot_password(client(), String.t(), boolean()) :: result()
+  @spec forgot_password(Okta.client(), String.t(), boolean()) :: Okta.result()
   def forgot_password(client, user_id, send_email \\ true) do
     Tesla.post(
       client,
@@ -506,8 +503,8 @@ defmodule Okta.Users do
 
   [https://developer.okta.com/docs/reference/api/users/#forgot-password](https://developer.okta.com/docs/reference/api/users/#forgot-password)
   """
-  @spec forgot_password_with_security_answer(client(), String.t(), String.t(), String.t()) ::
-          result()
+  @spec forgot_password_with_security_answer(Okta.client(), String.t(), String.t(), String.t()) ::
+          Okta.result()
   def forgot_password_with_security_answer(
         client,
         user_id,
