@@ -32,7 +32,7 @@ Add `okta_api` to your list of dependencies in mix.exs
 ```
 def deps do
   [
-    {:okta_api, "~> 0.1.2"}
+    {:okta_api, "~> 0.1.4"}
   ]
 end
 ```

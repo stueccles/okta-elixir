@@ -4,7 +4,7 @@ defmodule Okta.MixProject do
   def project do
     [
       app: :okta_api,
-      version: "0.1.3",
+      version: "0.1.4",
       elixir: "~> 1.9-rc",
       start_permanent: Mix.env() == :prod,
       description: description(),
