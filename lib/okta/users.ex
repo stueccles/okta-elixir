@@ -16,7 +16,7 @@ defmodule Okta.Users do
   Fetch a user by id, login, or login shortname if the short name is
   unambiguous.
 
-  [https://developer.okta.com/docs/reference/api/users/#get-user](https://developer.okta.com/docs/reference/api/users/#get-user)
+  https://developer.okta.com/docs/reference/api/users/#get-user
   """
   @spec get_user(Okta.client(), String.t()) :: Okta.result()
   def get_user(client, user) do
@@ -26,7 +26,7 @@ defmodule Okta.Users do
   @doc """
   Fetches the current user linked to API token or session cookie.
 
-  [https://developer.okta.com/docs/reference/api/users/#get-current-user](https://developer.okta.com/docs/reference/api/users/#get-current-user)
+  https://developer.okta.com/docs/reference/api/users/#get-current-user
   """
   @spec get_current_user(Okta.client()) :: Okta.result()
   def get_current_user(client) do
@@ -37,7 +37,7 @@ defmodule Okta.Users do
   Fetches appLinks for all direct or indirect (via group membership) assigned
   applications.
 
-  [https://developer.okta.com/docs/reference/api/users/#get-assigned-app-links](https://developer.okta.com/docs/reference/api/users/#get-assigned-app-links)
+  https://developer.okta.com/docs/reference/api/users/#get-assigned-app-links
   """
   @spec get_assigned_applinks(Okta.client(), String.t()) :: Okta.result()
   def get_assigned_applinks(client, user_id) do
@@ -47,7 +47,7 @@ defmodule Okta.Users do
   @doc """
   Fetches the groups of which the user is a member.
 
-  [https://developer.okta.com/docs/reference/api/users/#get-user-s-groups](https://developer.okta.com/docs/reference/api/users/#get-user-s-groups)
+  https://developer.okta.com/docs/reference/api/users/#get-user-s-groups
   """
   @spec get_groups_for_user(Okta.client(), String.t()) :: Okta.result()
   def get_groups_for_user(client, user_id) do
@@ -59,8 +59,7 @@ defmodule Okta.Users do
   authenticate on the next operation. Optionally revokes OpenID Connect and
   OAuth refresh and access tokens issued to the user.
 
-  [https://developer.okta.com/docs/reference/api/users/#clear-user-sessions](https://developer.okta.com/docs/reference/api/users/#clear-user-sessions)
-
+  https://developer.okta.com/docs/reference/api/users/#clear-user-sessions
   """
   @spec clear_user_sessions(Okta.client(), String.t(), boolean()) :: Okta.result()
   def clear_user_sessions(client, user_id, oauth_tokens \\ false) do
@@ -74,9 +73,8 @@ defmodule Okta.Users do
   A subset of users can be returned that match a supported filter expression or
   search criteria.
 
-  see
-  [https://developer.okta.com/docs/reference/api/users/#list-users](https://developer.okta.com/docs/reference/api/users/#list-users)
-  for optional parameters that can be passed in.
+  See https://developer.okta.com/docs/reference/api/users/#list-users for
+  optional parameters that can be passed in.
 
   ##Example
 
@@ -95,7 +93,7 @@ defmodule Okta.Users do
   name, for example when creating a people picker. The value of query is matched
   against firstName, lastName, or email.
 
-  [https://developer.okta.com/docs/reference/api/users/#find-users](https://developer.okta.com/docs/reference/api/users/#find-users)
+  https://developer.okta.com/docs/reference/api/users/#find-users
   """
   @spec find_users(Okta.client(), String.t(), keyword()) :: Okta.result()
   def find_users(client, query, opts \\ []) do
@@ -106,8 +104,7 @@ defmodule Okta.Users do
   Shortcut method to use list_users with a `search` parameter. Searches for
   users based on the properties specified in the search_term.
 
-  see
-  [https://developer.okta.com/docs/reference/api/users/#list-users-with-search](https://developer.okta.com/docs/reference/api/users/#list-users-with-search)
+  See https://developer.okta.com/docs/reference/api/users/#list-users-with-search
   for details.
   """
   @spec search_users(Okta.client(), String.t(), keyword()) :: Okta.result()
@@ -119,11 +116,11 @@ defmodule Okta.Users do
   Shortcut method to use list_users with a `filter` parameter. Lists all users
   that match the filter criteria.
 
-  see
-  [https://developer.okta.com/docs/reference/api/users/#list-users-with-a-filter](https://developer.okta.com/docs/reference/api/users/#list-users-with-a-filter)
+  See https://developer.okta.com/docs/reference/api/users/#list-users-with-a-filter
   for details.
 
-  and [https://developer.okta.com/docs/reference/api-overview/#filtering](https://developer.okta.com/docs/reference/api-overview/#filtering) on how Okta supports filters
+  And https://developer.okta.com/docs/reference/api-overview/#filtering on how
+  Okta supports filters
   """
   @spec filter_users(Okta.client(), String.t(), keyword()) :: Okta.result()
   def filter_users(client, filter, opts \\ []) do
@@ -203,7 +200,7 @@ defmodule Okta.Users do
   @doc """
   Creates a new user in your Okta organization with or without credentials.
 
-  [https://developer.okta.com/docs/reference/api/users/#create-user](https://developer.okta.com/docs/reference/api/users/#create-user)
+  https://developer.okta.com/docs/reference/api/users/#create-user
   """
   @spec create_user(Okta.client(), map(), boolean(), keyword()) :: Okta.result()
   def create_user(client, profile, activate \\ true, opts \\ []) do
@@ -241,7 +238,7 @@ defmodule Okta.Users do
   @doc """
   Creates a user without a recovery question & answer.
 
-  [https://developer.okta.com/docs/reference/api/users/#create-user-with-password](https://developer.okta.com/docs/reference/api/users/#create-user-with-password)
+  https://developer.okta.com/docs/reference/api/users/#create-user-with-password
   """
   @spec create_user_with_password(Okta.client(), map(), String.t(), boolean(), keyword()) :: Okta.result()
   def create_user_with_password(client, profile, password, activate \\ true, opts \\ []) do
@@ -257,7 +254,7 @@ defmodule Okta.Users do
   Creates a new passwordless user with a `SOCIAL` or `FEDERATION` authentication
   provider that must be authenticated via a trusted Identity Provider.
 
-  [https://developer.okta.com/docs/reference/api/users/#create-user-with-authentication-provider](https://developer.okta.com/docs/reference/api/users/#create-user-with-authentication-provider)
+  https://developer.okta.com/docs/reference/api/users/#create-user-with-authentication-provider
   """
   @spec create_user_with_provider(Okta.client(), map(), String.t(), String.t(), boolean(), keyword()) ::
           Okta.result()
@@ -286,8 +283,7 @@ defmodule Okta.Users do
   This is an administrative operation. For an operation that requires validation
   see `change_password/4`.
 
-  [https://developer.okta.com/docs/reference/api/users/#set-password](https://developer.okta.com/docs/reference/api/users/#set-password)
-
+  https://developer.okta.com/docs/reference/api/users/#set-password
   """
   @spec set_password(Okta.client(), String.t(), String.t()) :: Okta.result()
   def set_password(client, user_id, password) do
@@ -301,7 +297,7 @@ defmodule Okta.Users do
   This operation can only be performed on users in `STAGED`, `ACTIVE`,
   `PASSWORD_EXPIRED`, or `RECOVERY` status that have a valid password credential.
 
-  [https://developer.okta.com/docs/reference/api/users/#change-password](https://developer.okta.com/docs/reference/api/users/#change-password)
+  https://developer.okta.com/docs/reference/api/users/#change-password
   """
   @spec change_password(Okta.client(), String.t(), String.t(), String.t(), boolean()) :: Okta.result()
   def change_password(client, user_id, old_password, new_password, strict \\ false) do
@@ -322,7 +318,7 @@ defmodule Okta.Users do
   This is an administrative operation. For an operation that requires validation
   see `change_recovery_credential/5`
 
-  [https://developer.okta.com/docs/reference/api/users/#set-recovery-question-answer](https://developer.okta.com/docs/reference/api/users/#set-recovery-question-answer)
+  https://developer.okta.com/docs/reference/api/users/#set-recovery-question-answer
   """
   @spec set_recovery_credential(Okta.client(), String.t(), String.t(), String.t()) :: Okta.result()
   def set_recovery_credential(client, user_id, question, answer) do
@@ -339,7 +335,7 @@ defmodule Okta.Users do
   This operation can only be performed on users in `STAGED`, `ACTIVE` or
   `RECOVERY` status that have a valid password credential.
 
-  [https://developer.okta.com/docs/reference/api/users/#change-recovery-question](https://developer.okta.com/docs/reference/api/users/#change-recovery-question)
+  https://developer.okta.com/docs/reference/api/users/#change-recovery-question
   """
   @spec change_recovery_credential(Okta.client(), String.t(), String.t(), String.t(), String.t()) ::
           Okta.result()
@@ -363,7 +359,7 @@ defmodule Okta.Users do
   Users who don't have a password must complete the welcome flow by visiting
   the activation link to complete the transition to `ACTIVE` status.
 
-  [https://developer.okta.com/docs/reference/api/users/#activate-user](https://developer.okta.com/docs/reference/api/users/#activate-user)
+  https://developer.okta.com/docs/reference/api/users/#activate-user
   """
   @spec activate_user(Okta.client(), String.t(), boolean()) :: Okta.result()
   def activate_user(client, user_id, send_email \\ false) do
@@ -386,7 +382,7 @@ defmodule Okta.Users do
   Users that don't have a password must complete the flow by completing Reset
   Password and MFA enrollment steps to transition the user to `ACTIVE` status.
 
-  [https://developer.okta.com/docs/reference/api/users/#reactivate-user](https://developer.okta.com/docs/reference/api/users/#reactivate-user)
+  https://developer.okta.com/docs/reference/api/users/#reactivate-user
   """
   @spec reactivate_user(Okta.client(), String.t(), boolean()) :: Okta.result()
   def reactivate_user(client, user_id, send_email \\ false) do
@@ -411,7 +407,7 @@ defmodule Okta.Users do
   The user's status is `DEPROVISIONED` when the deactivation process is
   complete.
 
-  [https://developer.okta.com/docs/reference/api/users/#deactivate-user](https://developer.okta.com/docs/reference/api/users/#deactivate-user)
+  https://developer.okta.com/docs/reference/api/users/#deactivate-user
   """
   @spec deactivate_user(Okta.client(), String.t(), boolean()) :: Okta.result()
   def deactivate_user(client, user_id, send_email \\ false) do
@@ -425,7 +421,7 @@ defmodule Okta.Users do
   Unlocks a user with a `LOCKED_OUT` status and returns them to ACTIVE status.
   Users will be able to login with their current password.
 
-  [https://developer.okta.com/docs/reference/api/users/#unlock-user](https://developer.okta.com/docs/reference/api/users/#unlock-user)
+  https://developer.okta.com/docs/reference/api/users/#unlock-user
   """
   @spec unlock_user(Okta.client(), String.t()) :: Okta.result()
   def unlock_user(client, user_id) do
@@ -440,7 +436,7 @@ defmodule Okta.Users do
   temporary password that is returned, and then the temporary password is
   expired.
 
-  [https://developer.okta.com/docs/reference/api/users/#expire-password](https://developer.okta.com/docs/reference/api/users/#expire-password)
+  https://developer.okta.com/docs/reference/api/users/#expire-password
   """
   @spec expire_passsword(Okta.client(), String.t(), boolean()) :: Okta.result()
   def expire_passsword(client, user_id, temp_password \\ false) do
@@ -459,7 +455,7 @@ defmodule Okta.Users do
   user will not be able to login or initiate a forgot password flow until they
   complete the reset flow.
 
-  [https://developer.okta.com/docs/reference/api/users/#reset-password](https://developer.okta.com/docs/reference/api/users/#reset-password)
+  https://developer.okta.com/docs/reference/api/users/#reset-password
   """
   @spec reset_password(Okta.client(), String.t(), boolean()) :: Okta.result()
   def reset_password(client, user_id, send_email \\ false) do
@@ -479,7 +475,7 @@ defmodule Okta.Users do
   user has a status of `SUSPENDED` when the process is complete.
 
 
-  [https://developer.okta.com/docs/reference/api/users/#suspend-user](https://developer.okta.com/docs/reference/api/users/#suspend-user)
+  https://developer.okta.com/docs/reference/api/users/#suspend-user
   """
   @spec suspend_user(Okta.client(), String.t()) :: Okta.result()
   def suspend_user(client, user_id) do
@@ -489,7 +485,7 @@ defmodule Okta.Users do
   @doc """
   Unsuspends a user and returns them to the `ACTIVE` state.
 
-  [https://developer.okta.com/docs/reference/api/users/#unsuspend-user](https://developer.okta.com/docs/reference/api/users/#unsuspend-user)
+  https://developer.okta.com/docs/reference/api/users/#unsuspend-user
   """
   @spec unsuspend_user(Okta.client(), String.t()) :: Okta.result()
   def unsuspend_user(client, user_id) do
@@ -500,7 +496,7 @@ defmodule Okta.Users do
   Deletes a user permanently. This operation can only be performed on users
   that have a `DEPROVISIONED` status. This action cannot be recovered!.
 
-  [https://developer.okta.com/docs/reference/api/users/#delete-user](https://developer.okta.com/docs/reference/api/users/#delete-user)
+  https://developer.okta.com/docs/reference/api/users/#delete-user
   """
   @spec delete_user(Okta.client(), String.t(), boolean()) :: Okta.result()
   def delete_user(client, user_id, send_email \\ false) do
@@ -515,7 +511,7 @@ defmodule Okta.Users do
   visiting the reset link. This operation can only be performed on users with
   an `ACTIVE` status and a valid recovery question credential.
 
-  [https://developer.okta.com/docs/reference/api/users/#forgot-password](https://developer.okta.com/docs/reference/api/users/#forgot-password)
+  https://developer.okta.com/docs/reference/api/users/#forgot-password
   """
   @spec forgot_password(Okta.client(), String.t(), boolean()) :: Okta.result()
   def forgot_password(client, user_id, send_email \\ true) do
@@ -532,7 +528,7 @@ defmodule Okta.Users do
   Sets a new password for a user by validating the user's answer to their
   current recovery question.
 
-  [https://developer.okta.com/docs/reference/api/users/#forgot-password](https://developer.okta.com/docs/reference/api/users/#forgot-password)
+  https://developer.okta.com/docs/reference/api/users/#forgot-password
   """
   @spec forgot_password_with_security_answer(Okta.client(), String.t(), String.t(), String.t()) ::
           Okta.result()

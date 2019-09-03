@@ -27,7 +27,7 @@ defmodule Okta.Groups do
         name: "Designers", description: "All the designers"
       })
 
-  [https://developer.okta.com/docs/reference/api/groups/#add-group](https://developer.okta.com/docs/reference/api/groups/#add-group)
+  https://developer.okta.com/docs/reference/api/groups/#add-group
   """
   @spec create_group(Okta.client(), map()) :: Okta.result()
   def create_group(client, profile) do
@@ -39,7 +39,7 @@ defmodule Okta.Groups do
   The [OKTA group profile object](https://developer.okta.com/docs/reference/api/groups/#objectclass-okta-user-group)
   has a name and description attributes.
 
-  [https://developer.okta.com/docs/reference/api/groups/#update-group](https://developer.okta.com/docs/reference/api/groups/#update-group)
+  https://developer.okta.com/docs/reference/api/groups/#update-group
   """
   @spec update_group(Okta.client(), String.t(), map()) :: Okta.result()
   def update_group(client, group_id, profile) do
@@ -49,7 +49,7 @@ defmodule Okta.Groups do
   @doc """
   Removes a group with OKTA_GROUP type from your organization.
 
-  [https://developer.okta.com/docs/reference/api/groups/#remove-group](https://developer.okta.com/docs/reference/api/groups/#remove-group)
+  https://developer.okta.com/docs/reference/api/groups/#remove-group
   """
   @spec delete_group(Okta.client(), String.t()) :: Okta.result()
   def delete_group(client, group_id) do
@@ -59,7 +59,7 @@ defmodule Okta.Groups do
   @doc """
   Fetches a specific group by id from your organization.
 
-  [https://developer.okta.com/docs/reference/api/groups/#get-group](https://developer.okta.com/docs/reference/api/groups/#get-group)
+  https://developer.okta.com/docs/reference/api/groups/#get-group
   """
   @spec get_group(Okta.client(), String.t()) :: Okta.result()
   def get_group(client, group_id) do
@@ -70,7 +70,7 @@ defmodule Okta.Groups do
   Enumerates all users that are a member of a group. `limit` and `after`
   parameters provide for paging.
 
-  [https://developer.okta.com/docs/reference/api/groups/#list-group-members](https://developer.okta.com/docs/reference/api/groups/#list-group-members)
+  https://developer.okta.com/docs/reference/api/groups/#list-group-members
   """
   @spec list_group_members(Okta.client(), String.t()) :: Okta.result()
   def list_group_members(client, group_id, opt \\ []) do
@@ -80,7 +80,7 @@ defmodule Okta.Groups do
   @doc """
   Enumerates all applications that are assigned to a group.
 
-  [https://developer.okta.com/docs/reference/api/groups/#list-assigned-applications](https://developer.okta.com/docs/reference/api/groups/#list-assigned-applications)
+  https://developer.okta.com/docs/reference/api/groups/#list-assigned-applications
   """
   @spec list_group_apps(Okta.client(), String.t()) :: Okta.result()
   def list_group_apps(client, group_id, opt \\ []) do
@@ -90,7 +90,7 @@ defmodule Okta.Groups do
   @doc """
   Removes a user from a group with OKTA_GROUP type.
 
-  [https://developer.okta.com/docs/reference/api/groups/#remove-user-from-group](https://developer.okta.com/docs/reference/api/groups/#remove-user-from-group)
+  https://developer.okta.com/docs/reference/api/groups/#remove-user-from-group
   """
   @spec remove_user_from_group(Okta.client(), String.t(), String.t()) :: Okta.result()
   def remove_user_from_group(client, group_id, user_id) do
@@ -100,7 +100,7 @@ defmodule Okta.Groups do
   @doc """
   Adds a user to a group with OKTA_GROUP type.
 
-  [https://developer.okta.com/docs/reference/api/groups/#add-user-to-group](https://developer.okta.com/docs/reference/api/groups/#add-user-to-group)
+  https://developer.okta.com/docs/reference/api/groups/#add-user-to-group
   """
   @spec add_user_to_group(Okta.client(), String.t(), String.t()) :: Okta.result()
   def add_user_to_group(client, group_id, user_id) do
@@ -113,9 +113,8 @@ defmodule Okta.Groups do
   A subset of groups can be returned that match a supported filter expression or
   query.
 
-  see
-  [https://developer.okta.com/docs/reference/api/groups/#list-groups](https://developer.okta.com/docs/reference/api/groups/#list-groups)
-  for optional parameters that can be passed in.
+  See https://developer.okta.com/docs/reference/api/groups/#list-groups for
+  optional parameters that can be passed in.
 
   ##Example
 
@@ -129,7 +128,7 @@ defmodule Okta.Groups do
   @doc """
   Searches for groups by name in your organization.
 
-  [https://developer.okta.com/docs/reference/api/groups/#search-groups](https://developer.okta.com/docs/reference/api/groups/#search-groups)
+  https://developer.okta.com/docs/reference/api/groups/#search-groups
   """
   @spec search_groups(Okta.client(), String.t(), keyword()) :: Okta.result()
   def search_groups(client, name, opts \\ []) do
@@ -139,8 +138,8 @@ defmodule Okta.Groups do
   @doc """
   Filter groups by expression.
 
-  see [https://developer.okta.com/docs/reference/api/groups/#list-groups](https://developer.okta.com/docs/reference/api/groups/#list-groups) and
-  [https://developer.okta.com/docs/reference/api-overview/#filtering](https://developer.okta.com/docs/reference/api-overview/#filtering)
+  See https://developer.okta.com/docs/reference/api/groups/#list-groups and
+  https://developer.okta.com/docs/reference/api-overview/#filtering
 
   """
   @spec filter_groups(Okta.client(), String.t(), keyword()) :: Okta.result()
@@ -151,7 +150,7 @@ defmodule Okta.Groups do
   @doc """
   Enumerates all groups with a specific type.
 
-  [https://developer.okta.com/docs/reference/api/groups/#list-groups-with-type](https://developer.okta.com/docs/reference/api/groups/#list-groups-with-type)
+  https://developer.okta.com/docs/reference/api/groups/#list-groups-with-type
   """
   @spec list_groups_of_type(Okta.client(), String.t(), keyword()) :: Okta.result()
   def list_groups_of_type(client, type, opts \\ []) do
@@ -161,7 +160,7 @@ defmodule Okta.Groups do
   @doc """
   Enumerates all groups with a profile updated after the specified timestamp.
 
-  [https://developer.okta.com/docs/reference/api/groups/#list-groups-with-profile-updated-after-timestamp]([https://developer.okta.com/docs/reference/api/groups/#list-groups-with-profile-updated-after-timestamp])
+  https://developer.okta.com/docs/reference/api/groups/#list-groups-with-profile-updated-after-timestamp
   """
   @spec list_groups_profile_updated_after(Okta.client(), Calendar.datetime(), keyword()) :: Okta.result()
   def list_groups_profile_updated_after(client, updated_at, opts \\ []) do
@@ -176,7 +175,7 @@ defmodule Okta.Groups do
   Enumerates all groups with user memberships updated after the specified
   timestamp.
 
-  [https://developer.okta.com/docs/reference/api/groups/#list-groups-with-membership-updated-after-timestamp](https://developer.okta.com/docs/reference/api/groups/#list-groups-with-membership-updated-after-timestamp)
+  https://developer.okta.com/docs/reference/api/groups/#list-groups-with-membership-updated-after-timestamp
   """
   @spec list_groups_membership_updated_after(Okta.client(), Calendar.datetime(), keyword()) :: Okta.result()
   def list_groups_membership_updated_after(client, updated_at, opts \\ []) do
@@ -191,7 +190,7 @@ defmodule Okta.Groups do
   Enumerates all groups with profile or user memberships updated after the
   specified timestamp.
 
-  [https://developer.okta.com/docs/reference/api/groups/#list-groups-updated-after-timestamp](https://developer.okta.com/docs/reference/api/groups/#list-groups-updated-after-timestamp)
+  https://developer.okta.com/docs/reference/api/groups/#list-groups-updated-after-timestamp
   """
   @spec list_groups_updated_after(Okta.client(), Calendar.datetime(), keyword()) :: Okta.result()
   def list_groups_updated_after(client, updated_at, opts \\ []) do
