@@ -305,13 +305,13 @@ defmodule Okta.UsersCreateTest do
         {:ok, expected_body} = Jason.encode(data)
 
         assert expected_body == request.body
-        assert :put == request.method
+        assert :post == request.method
         assert [strict: true] = request.query
         assert "#{base_url}/api/v1/users/#{user_id}" == request.url
         {:ok, Tesla.Mock.json(%{}, status: 200)}
     end)
 
     assert {:ok, %{}, _env} =
-             Okta.Users.update_user(client, user_id, data, [strict: true])
+             Okta.Users.update_profile(client, user_id, data, [strict: true])
   end
 end
