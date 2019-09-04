@@ -283,7 +283,7 @@ defmodule Okta.UsersCreateTest do
 
         assert expected_body == request.body
         assert :put == request.method
-        assert [strict: false] = request.query
+        assert [strict: true] = request.query
         assert "#{base_url}/api/v1/users/#{user_id}" == request.url
         {:ok, Tesla.Mock.json(%{}, status: 200)}
     end)
@@ -306,7 +306,7 @@ defmodule Okta.UsersCreateTest do
 
         assert expected_body == request.body
         assert :put == request.method
-        assert [strict: false] = request.query
+        assert [strict: true] = request.query
         assert "#{base_url}/api/v1/users/#{user_id}" == request.url
         {:ok, Tesla.Mock.json(%{}, status: 200)}
     end)
