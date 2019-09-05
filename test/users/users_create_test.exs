@@ -268,4 +268,50 @@ defmodule Okta.UsersCreateTest do
                provider_nametype
              )
   end
+
+  test "update_user/4 requests correctly", %{
+    client: client,
+    base_url: base_url,
+  } do
+    user_id = "123"
+    data = %{profile: %{login: "newlogin@acmec.com"}}
+
+    Okta.Tesla.Mock
+    |> Mox.expect(:call, fn
+      request, _opts ->
+        {:ok, expected_body} = Jason.encode(data)
+
+        assert expected_body == request.body
+        assert :put == request.method
+        assert [strict: true] = request.query
+        assert "#{base_url}/api/v1/users/#{user_id}" == request.url
+        {:ok, Tesla.Mock.json(%{}, status: 200)}
+    end)
+
+    assert {:ok, %{}, _env} =
+             Okta.Users.update_user(client, user_id, data, [strict: true])
+  end
+
+  test "update_profile/4 requests correctly", %{
+    client: client,
+    base_url: base_url,
+  } do
+    user_id = "123"
+    data = %{profile: %{login: "newlogin@acmec.com"}}
+
+    Okta.Tesla.Mock
+    |> Mox.expect(:call, fn
+      request, _opts ->
+        {:ok, expected_body} = Jason.encode(data)
+
+        assert expected_body == request.body
+        assert :post == request.method
+        assert [strict: true] = request.query
+        assert "#{base_url}/api/v1/users/#{user_id}" == request.url
+        {:ok, Tesla.Mock.json(%{}, status: 200)}
+    end)
+
+    assert {:ok, %{}, _env} =
+             Okta.Users.update_profile(client, user_id, data, [strict: true])
+  end
 end

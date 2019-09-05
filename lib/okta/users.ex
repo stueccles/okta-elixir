@@ -236,6 +236,33 @@ defmodule Okta.Users do
   end
 
   @doc """
+  Updates a user's profile and/or credentials using strict-update semantics.
+
+  > All profile properties must be specified, any property not specified in the
+  > request is deleted.
+
+  https://developer.okta.com/docs/reference/api/users/#update-user
+  """
+  @spec update_user(Okta.client(), String.t(), map(), keyword()) :: Okta.result()
+  def update_user(client, user_id, data, query_params \\ []) do
+    client
+    |> Tesla.put(@users_url <> "/#{user_id}", data, query: query_params)
+    |> Okta.result()
+  end
+
+  @doc """
+  Updates a user's profile or credentials with partial update semantics.
+
+  https://developer.okta.com/docs/reference/api/users/#update-profile
+  """
+  @spec update_profile(Okta.client(), String.t(), map(), keyword()) :: Okta.result()
+  def update_profile(client, user_id, data, query_params \\ []) do
+    client
+    |> Tesla.post(@users_url <> "/#{user_id}", data, query: query_params)
+    |> Okta.result()
+  end
+
+  @doc """
   Creates a user without a recovery question & answer.
 
   https://developer.okta.com/docs/reference/api/users/#create-user-with-password
