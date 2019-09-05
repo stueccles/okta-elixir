@@ -25,3 +25,4 @@ okta-*.tar
 .DS_Store
 .formatter.exs
 .vscode/
+.elixir_ls
