@@ -26,8 +26,8 @@ defmodule Okta.MixProject do
   defp deps do
     [
       {:ex_doc, "~> 0.21", only: :dev, runtime: false},
-      {:tesla, "~> 1.2.0"},
-      {:hackney, "~> 1.14.0"},
+      {:tesla, "~> 1.3"},
+      {:hackney, "~> 1.15"},
       {:jason, ">= 1.0.0"},
       {:mox, "~> 0.5", only: :test}
     ]
