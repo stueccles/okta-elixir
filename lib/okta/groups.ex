@@ -162,7 +162,8 @@ defmodule Okta.Groups do
 
   https://developer.okta.com/docs/reference/api/groups/#list-groups-with-profile-updated-after-timestamp
   """
-  @spec list_groups_profile_updated_after(Okta.client(), Calendar.datetime(), keyword()) :: Okta.result()
+  @spec list_groups_profile_updated_after(Okta.client(), Calendar.datetime(), keyword()) ::
+          Okta.result()
   def list_groups_profile_updated_after(client, updated_at, opts \\ []) do
     filter_groups(
       client,
@@ -177,7 +178,8 @@ defmodule Okta.Groups do
 
   https://developer.okta.com/docs/reference/api/groups/#list-groups-with-membership-updated-after-timestamp
   """
-  @spec list_groups_membership_updated_after(Okta.client(), Calendar.datetime(), keyword()) :: Okta.result()
+  @spec list_groups_membership_updated_after(Okta.client(), Calendar.datetime(), keyword()) ::
+          Okta.result()
   def list_groups_membership_updated_after(client, updated_at, opts \\ []) do
     filter_groups(
       client,
