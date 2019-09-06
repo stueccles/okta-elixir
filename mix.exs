@@ -6,6 +6,7 @@ defmodule Okta.MixProject do
       app: :okta_api,
       version: "0.1.5",
       elixir: "~> 1.9-rc",
+      elixirc_paths: elixirc_paths(Mix.env()),
       start_permanent: Mix.env() == :prod,
       description: description(),
       package: package(),
@@ -21,6 +22,9 @@ defmodule Okta.MixProject do
       extra_applications: [:tesla, :hackney, :logger]
     ]
   end
+
+  defp elixirc_paths(:test), do: ["lib", "test/support"]
+  defp elixirc_paths(_), do: ["lib"]
 
   # Run "mix help deps" to learn about dependencies.
   defp deps do
