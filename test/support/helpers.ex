@@ -16,7 +16,7 @@ defmodule Okta.TestSupport.Helpers do
 
     Mox.expect(Okta.Tesla.Mock, :call, fn
       request, _opts ->
-        assert(request.body == body)
+        assert(request.body == with_default_body(request, body))
         assert(request.method == method)
         assert(request.query == query)
         assert(request.url == base_url <> path)
@@ -31,5 +31,13 @@ defmodule Okta.TestSupport.Helpers do
 
   def base_url do
     "https://dev-000000.okta.com"
+  end
+
+  def with_default_body(%{method: method}, nil) when method in [:post, :put] do
+    ""
+  end
+
+  def with_default_body(_, body) do
+    body
   end
 end

@@ -117,7 +117,6 @@ defmodule Okta.UsersUpdateTest do
       path: "/api/v1/users/#{user_id}/lifecycle/activate",
       method: :post,
       query: [sendEmail: false],
-      body: "",
       status: 200
     )
 
@@ -132,7 +131,6 @@ defmodule Okta.UsersUpdateTest do
       path: "/api/v1/users/#{user_id}/lifecycle/activate",
       method: :post,
       query: [sendEmail: true],
-      body: "",
       status: 200
     )
 
@@ -147,7 +145,6 @@ defmodule Okta.UsersUpdateTest do
       path: "/api/v1/users/#{user_id}/lifecycle/deactivate",
       method: :post,
       query: [sendEmail: false],
-      body: "",
       status: 200
     )
 
@@ -161,7 +158,6 @@ defmodule Okta.UsersUpdateTest do
     Helpers.mock_request(
       path: "/api/v1/users/#{user_id}/lifecycle/unlock",
       method: :post,
-      body: "",
       status: 200
     )
 
@@ -176,7 +172,6 @@ defmodule Okta.UsersUpdateTest do
       path: "/api/v1/users/#{user_id}/lifecycle/expire_password",
       method: :post,
       query: [tempPassword: false],
-      body: "",
       status: 200
     )
 
@@ -191,7 +186,6 @@ defmodule Okta.UsersUpdateTest do
       path: "/api/v1/users/#{user_id}/lifecycle/expire_password",
       method: :post,
       query: [tempPassword: true],
-      body: "",
       status: 200
     )
 
@@ -206,7 +200,6 @@ defmodule Okta.UsersUpdateTest do
       path: "/api/v1/users/#{user_id}/lifecycle/reset_password",
       method: :post,
       query: [sendEmail: false],
-      body: "",
       status: 200
     )
 
@@ -221,7 +214,6 @@ defmodule Okta.UsersUpdateTest do
       path: "/api/v1/users/#{user_id}/lifecycle/reset_password",
       method: :post,
       query: [sendEmail: true],
-      body: "",
       status: 200
     )
 
@@ -235,7 +227,6 @@ defmodule Okta.UsersUpdateTest do
     Helpers.mock_request(
       path: "/api/v1/users/#{user_id}/lifecycle/suspend",
       method: :post,
-      body: "",
       status: 200
     )
 
@@ -249,7 +240,6 @@ defmodule Okta.UsersUpdateTest do
     Helpers.mock_request(
       path: "/api/v1/users/#{user_id}/lifecycle/unsuspend",
       method: :post,
-      body: "",
       status: 200
     )
 
@@ -264,7 +254,6 @@ defmodule Okta.UsersUpdateTest do
       path: "/api/v1/users/#{user_id}/credentials/forgot_password",
       method: :post,
       query: [sendEmail: true],
-      body: "",
       status: 200
     )
 
@@ -279,7 +268,6 @@ defmodule Okta.UsersUpdateTest do
       path: "/api/v1/users/#{user_id}/credentials/forgot_password",
       method: :post,
       query: [sendEmail: false],
-      body: "",
       status: 200
     )
 
