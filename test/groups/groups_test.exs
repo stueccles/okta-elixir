@@ -129,7 +129,6 @@ defmodule Okta.GroupsTest do
     Helpers.mock_request(
       path: "/api/v1/groups/#{group_id}/users/#{user_id}",
       method: :put,
-      body: "",
       status: 200
     )
 
