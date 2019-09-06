@@ -14,7 +14,7 @@ defmodule Okta.TestSupport.Helpers do
     response = Keyword.get(opts, :response, %{})
     body = Keyword.get(opts, :body)
 
-    Mox.expect(Okta.Tesla.Mock, :call, fn
+    Mox.expect(Okta.adapter(), :call, fn
       request, _opts ->
         assert(request.body == with_default_body(request, body))
         assert(request.method == method)
