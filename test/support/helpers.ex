@@ -33,7 +33,7 @@ defmodule Okta.TestSupport.Helpers do
     "https://dev-000000.okta.com"
   end
 
-  def with_default_body(%{method: method}, nil) when method in [:post, :put] do
+  def with_default_body(%{method: method}, nil) when method in [:post, :put, :patch] do
     ""
   end
 
