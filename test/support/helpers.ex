@@ -2,10 +2,8 @@ defmodule Okta.TestSupport.Helpers do
   @moduledoc false
   import ExUnit.Assertions
 
-  @base_url "https://dev-000000.okta.com"
-
   def mock_request(opts) do
-    mock_request(@base_url, opts)
+    mock_request(base_url(), opts)
   end
 
   def mock_request(base_url, opts, callback \\ nil) do
@@ -29,5 +27,9 @@ defmodule Okta.TestSupport.Helpers do
 
         {:ok, Tesla.Mock.json(response, status: status)}
     end)
+  end
+
+  def base_url do
+    "https://dev-000000.okta.com"
   end
 end
