@@ -1,7 +1,12 @@
 defmodule Okta.TestSupport.Helpers do
   @moduledoc false
-
   import ExUnit.Assertions
+
+  @base_url "https://dev-000000.okta.com"
+
+  def mock_request(opts) do
+    mock_request(@base_url, opts)
+  end
 
   def mock_request(base_url, opts, callback \\ nil) do
     status = Keyword.get(opts, :status)
