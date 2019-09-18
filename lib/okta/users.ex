@@ -267,7 +267,8 @@ defmodule Okta.Users do
 
   https://developer.okta.com/docs/reference/api/users/#create-user-with-password
   """
-  @spec create_user_with_password(Okta.client(), map(), String.t(), boolean(), keyword()) :: Okta.result()
+  @spec create_user_with_password(Okta.client(), map(), String.t(), boolean(), keyword()) ::
+          Okta.result()
   def create_user_with_password(client, profile, password, activate \\ true, opts \\ []) do
     create_user(
       client,
@@ -283,7 +284,14 @@ defmodule Okta.Users do
 
   https://developer.okta.com/docs/reference/api/users/#create-user-with-authentication-provider
   """
-  @spec create_user_with_provider(Okta.client(), map(), String.t(), String.t(), boolean(), keyword()) ::
+  @spec create_user_with_provider(
+          Okta.client(),
+          map(),
+          String.t(),
+          String.t(),
+          boolean(),
+          keyword()
+        ) ::
           Okta.result()
   def create_user_with_provider(
         client,
@@ -326,7 +334,8 @@ defmodule Okta.Users do
 
   https://developer.okta.com/docs/reference/api/users/#change-password
   """
-  @spec change_password(Okta.client(), String.t(), String.t(), String.t(), boolean()) :: Okta.result()
+  @spec change_password(Okta.client(), String.t(), String.t(), String.t(), boolean()) ::
+          Okta.result()
   def change_password(client, user_id, old_password, new_password, strict \\ false) do
     Tesla.post(
       client,
@@ -347,7 +356,8 @@ defmodule Okta.Users do
 
   https://developer.okta.com/docs/reference/api/users/#set-recovery-question-answer
   """
-  @spec set_recovery_credential(Okta.client(), String.t(), String.t(), String.t()) :: Okta.result()
+  @spec set_recovery_credential(Okta.client(), String.t(), String.t(), String.t()) ::
+          Okta.result()
   def set_recovery_credential(client, user_id, question, answer) do
     Tesla.put(client, @users_url <> "/#{user_id}", %{
       credentials: recovery_data(question, answer)
