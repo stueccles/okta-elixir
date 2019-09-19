@@ -28,6 +28,6 @@ defmodule Okta.Plug.EventHookTest do
       |> EventHook.call(@opts)
 
     assert conn.status == 200
-    assert conn.resp_body == "{\"verification\":\"my verification challenge\"}"
+    assert conn.resp_body == Jason.encode!(%{verification: "my verification challenge"})
   end
 end
