@@ -1,7 +1,6 @@
 defmodule Okta.Plug.EventHookTest do
   use ExUnit.Case, async: true
 
-  alias Plug.Test
   alias Plug.Conn
   alias Okta.Plug.EventHook
 
@@ -23,9 +22,8 @@ defmodule Okta.Plug.EventHookTest do
   test "veryfying event hooks" do
     conn =
       :get
-      |> Plug.Test.conn("/okta/event-hooks")
+      |> build_conn()
       |> Conn.put_req_header("x-okta-verification-challenge", "my verification challenge")
-      |> Conn.put_req_header("authorization", @authorization_token)
       |> EventHook.call(@opts)
 
     assert conn.status == 200
@@ -46,8 +44,7 @@ defmodule Okta.Plug.EventHookTest do
 
     conn =
       :post
-      |> Plug.Test.conn("/okta/event-hooks")
-      |> Conn.put_req_header("authorization", @authorization_token)
+      |> build_conn()
       |> Map.put(:body_params, "some data")
       |> EventHook.call(@opts)
 
@@ -57,11 +54,7 @@ defmodule Okta.Plug.EventHookTest do
   describe "validating required configs" do
     test "validates event handler" do
       opts = EventHook.init(secret_key: @authorization_token)
-
-      conn =
-        :post
-        |> Plug.Test.conn("/okta/event-hooks")
-        |> Conn.put_req_header("authorization", @authorization_token)
+      conn = build_conn(:post)
 
       assert_raise ArgumentError, fn ->
         EventHook.call(conn, opts)
@@ -70,11 +63,7 @@ defmodule Okta.Plug.EventHookTest do
 
     test "validates secret key" do
       opts = EventHook.init([])
-
-      conn =
-        :post
-        |> Plug.Test.conn("/okta/event-hooks")
-        |> Conn.put_req_header("authorization", @authorization_token)
+      conn = build_conn(:post)
 
       assert_raise ArgumentError, fn ->
         EventHook.call(conn, opts)
@@ -82,4 +71,9 @@ defmodule Okta.Plug.EventHookTest do
     end
   end
 
+  defp build_conn(method) do
+    method
+    |> Plug.Test.conn("/okta/event-hooks")
+    |> Conn.put_req_header("authorization", @authorization_token)
+  end
 end
