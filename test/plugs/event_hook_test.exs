@@ -30,7 +30,13 @@ defmodule Okta.Plug.EventHookTest do
 
     assert conn.status == 200
     assert conn.resp_body == Jason.encode!(%{verification: "my verification challenge"})
-    assert Conn.get_resp_header(conn, "content-type") == "application/json"
+
+    assert conn
+           |> Conn.get_resp_header("content-type")
+           |> Enum.at(0)
+           |> String.contains?("application/json")
+
+    "application/json; charset=utf-8"
   end
 
   test "receiving events" do
