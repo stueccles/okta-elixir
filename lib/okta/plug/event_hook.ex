@@ -13,14 +13,14 @@ if Code.ensure_loaded?(Plug) do
 
     ### Usage
 
-    Using Plug
+    Using `Plug.Router`
 
         forward "/okta/event-hooks", to: Okta.Plug.EventHook, [
           event_handler: MyModule,
           secret_key: "my secret key"
         ]
 
-    Using in Phoenix Route
+    Using in `Phoenix.Router`
 
         forward "/slack", Okta.Plug.EventHook, [
           event_handler: MyModule,
