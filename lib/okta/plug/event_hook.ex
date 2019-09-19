@@ -41,7 +41,7 @@ if Code.ensure_loaded?(Plug) do
 
     def init(opts), do: opts
 
-    def call(conn, opts \\ []) do
+    def call(conn, opts) do
       conn
       |> with_valid_request_method()
       |> authorize(conn, opts)
