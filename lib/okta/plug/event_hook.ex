@@ -106,10 +106,16 @@ if Code.ensure_loaded?(Plug) do
 
     defp event_handler(opts) do
       Keyword.fetch!(opts, :event_handler)
+    rescue
+      _ ->
+        raise ArgumentError, "You forgot to configure the :event_handler for the plug."
     end
 
     defp secret_key(opts) do
       Keyword.fetch!(opts, :secret_key)
+    rescue
+      _ ->
+        raise ArgumentError, "You forgot to configure the :secret_key for the plug."
     end
   end
 end
