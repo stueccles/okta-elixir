@@ -19,4 +19,15 @@ defmodule Okta.Plug.EventHookTest do
     assert conn.status == 404
   end
 
+  test "veryfying event hooks" do
+    conn =
+      :get
+      |> conn("/okta/event-hooks")
+      |> Conn.put_req_header("x-okta-verification-challenge", "my verification challenge")
+      |> Conn.put_req_header("authorization", "authorization token")
+      |> EventHook.call(@opts)
+
+    assert conn.status == 200
+    assert conn.resp_body == "{\"verification\":\"my verification challenge\"}"
+  end
 end
