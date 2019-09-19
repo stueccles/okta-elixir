@@ -25,7 +25,7 @@ defmodule Okta.Plug.EventHookTest do
       :get
       |> Plug.Test.conn("/okta/event-hooks")
       |> Conn.put_req_header("x-okta-verification-challenge", "my verification challenge")
-      |> Conn.put_req_header("authorization", "authorization token")
+      |> Conn.put_req_header("authorization", @authorization_token)
       |> EventHook.call(@opts)
 
     assert conn.status == 200
@@ -47,7 +47,7 @@ defmodule Okta.Plug.EventHookTest do
     conn =
       :post
       |> Plug.Test.conn("/okta/event-hooks")
-      |> Conn.put_req_header("authorization", "authorization token")
+      |> Conn.put_req_header("authorization", @authorization_token)
       |> Map.put(:body_params, "some data")
       |> EventHook.call(@opts)
 
