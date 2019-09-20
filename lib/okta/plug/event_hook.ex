@@ -43,22 +43,18 @@ if Code.ensure_loaded?(Plug) do
 
     def call(conn, opts) do
       conn
-      |> with_valid_request_method()
-      |> authorize(conn, opts)
+      |> valid_request_method?()
+      |> authorize?(conn, opts)
       |> handle_request(conn, opts)
     end
 
-    defp with_valid_request_method(%{method: method}) do
-      if method in @allowed_methods do
-        :ok
-      else
-        :skip
-      end
+    defp valid_request_method?(%{method: method}) do
+      method in @allowed_methods
     end
 
-    defp authorize(:skip, _, _), do: :error
+    defp authorize?(false, _, _), do: false
 
-    defp authorize(_, conn, opts) do
+    defp authorize?(_, conn, opts) do
       secret_key = secret_key(opts)
 
       conn
@@ -66,8 +62,8 @@ if Code.ensure_loaded?(Plug) do
       |> verify(secret_key)
     end
 
-    defp verify(token, token), do: :ok
-    defp verify(_, _), do: :error
+    defp verify(token, token), do: true
+    defp verify(_, _), do: false
 
     defp authorization_token(conn) do
       conn
@@ -75,7 +71,7 @@ if Code.ensure_loaded?(Plug) do
       |> Enum.at(0)
     end
 
-    defp handle_request(:error, conn, _) do
+    defp handle_request(false, conn, _) do
       Conn.send_resp(conn, :not_found, "")
     end
 
