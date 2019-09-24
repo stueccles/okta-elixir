@@ -33,6 +33,7 @@ defmodule Okta.MixProject do
       {:tesla, "~> 1.3"},
       {:hackney, "~> 1.15"},
       {:jason, ">= 1.0.0"},
+      {:plug, "~> 1.8", optional: true},
       {:mox, "~> 0.5", only: :test}
     ]
   end
