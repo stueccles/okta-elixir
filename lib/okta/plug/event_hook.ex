@@ -58,14 +58,14 @@ if Code.ensure_loaded?(Plug) do
       secret_key = secret_key(opts)
 
       conn
-      |> authorization_token()
+      |> request_key()
       |> verify(secret_key)
     end
 
     defp verify(token, token), do: true
     defp verify(_, _), do: false
 
-    defp authorization_token(conn) do
+    defp request_key(conn) do
       conn
       |> Conn.get_req_header("authorization")
       |> Enum.at(0)
