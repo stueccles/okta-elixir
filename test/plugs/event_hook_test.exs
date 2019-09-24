@@ -4,10 +4,10 @@ defmodule Okta.Plug.EventHookTest do
   alias Plug.Conn
   alias Okta.Plug.EventHook
 
-  @authorization_token "authorization_token"
+  @request_key "authorization_token"
   @opts EventHook.init(
           event_handler: EventHookHandlerMock,
-          secret_key: @authorization_token
+          secret_key: @request_key
         )
 
   test "returns 404 with unauthorized requests" do
@@ -53,7 +53,7 @@ defmodule Okta.Plug.EventHookTest do
 
   describe "validating required configs" do
     test "validates event handler" do
-      opts = EventHook.init(secret_key: @authorization_token)
+      opts = EventHook.init(secret_key: @request_key)
       conn = build_conn(:post)
 
       assert_raise ArgumentError, fn ->
@@ -74,6 +74,6 @@ defmodule Okta.Plug.EventHookTest do
   defp build_conn(method) do
     method
     |> Plug.Test.conn("/okta/event-hooks")
-    |> Conn.put_req_header("authorization", @authorization_token)
+    |> Conn.put_req_header("authorization", @request_key)
   end
 end
