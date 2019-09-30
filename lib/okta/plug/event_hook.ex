@@ -30,7 +30,8 @@ if Code.ensure_loaded?(Plug) do
     ### Configuration
 
     * `event_handler`: A module that implements `Okta.EventHookHandler` behaviour.
-    * `secret_key`: The secret key to validate the incoming requests.
+    * `secret_key`: The secret key to validate the incoming requests. You could
+    use `mfa` configuration as well.
     """
 
     @behaviour Plug
@@ -108,6 +109,13 @@ if Code.ensure_loaded?(Plug) do
     end
 
     defp secret_key(opts) do
+      case secret_key_from_opts(opts) do
+        {m, f, a} -> apply(m, f, a)
+        secret_key -> secret_key
+      end
+    end
+
+    defp secret_key_from_opts(opts) do
       Keyword.fetch!(opts, :secret_key)
     rescue
       _ ->
