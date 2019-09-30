@@ -10,6 +10,12 @@ defmodule Okta.Plug.EventHookTest do
           secret_key: @request_key
         )
 
+  defmodule MockMFA do
+    def secret_key do
+      "authorization_token"
+    end
+  end
+
   test "returns 404 with unauthorized requests" do
     conn =
       :post
@@ -69,6 +75,24 @@ defmodule Okta.Plug.EventHookTest do
         EventHook.call(conn, opts)
       end
     end
+  end
+
+  test "using mfa for configurating secret key" do
+    Mox.expect(EventHookHandlerMock, :handle_event, fn params -> params end)
+
+    opts =
+      EventHook.init(
+        event_handler: EventHookHandlerMock,
+        secret_key: {MockMFA, :secret_key, []}
+      )
+
+    conn =
+      :post
+      |> build_conn()
+      |> Map.put(:body_params, "some data")
+      |> EventHook.call(opts)
+
+    assert conn.status == 204
   end
 
   defp build_conn(method) do
