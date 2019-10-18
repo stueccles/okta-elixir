@@ -3,11 +3,13 @@
 This library provides an Elixir API for accessing the [Okta Developer APIs](https://developer.okta.com/docs/reference/).
 
 Currently implemented are:
-* [Users API](https://developer.okta.com/docs/reference/api/users/)
-* [Groups API](https://developer.okta.com/docs/reference/api/groups/)
+
+- [Users API](https://developer.okta.com/docs/reference/api/users/)
+- [Groups API](https://developer.okta.com/docs/reference/api/groups/)
+- [Apps API](https://developer.okta.com/docs/reference/api/apps/)
 
 The API access uses the [Tesla](https://github.com/teamon/tesla) library and relies on the caller passing in an Okta base URL and an API Key
-to create a client. The client is then passed into all API calls. 
+to create a client. The client is then passed into all API calls.
 
 The API returns a 3 element tuple. If the API HTTP status code is less the 300 (ie. suceeded) it returns `:ok`, the HTTP body as a map and the full Tesla Env if you need to access more data about thre return. if the API HTTP status code is greater than 300. it returns `:error`, the HTTP body and the Telsa Env. If the API doesn't return at all it should return `:error`, a blank map and the error from Tesla.
 
@@ -39,5 +41,4 @@ end
 
 ## Documentation
 
-Documentation can be be found at [https://hexdocs.pm/okta_api](https://hexdocs.pm/okta_api). 
-
+Documentation can be be found at [https://hexdocs.pm/okta_api](https://hexdocs.pm/okta_api).

@@ -25,3 +25,4 @@ okta-*.tar
 .DS_Store
 .vscode/
 .elixir_ls
+.iex.exs
