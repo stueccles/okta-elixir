@@ -5,6 +5,9 @@ defmodule Okta do
   Currently implemented are:
   * [Users API](https://developer.okta.com/docs/reference/api/users/)
   * [Groups API](https://developer.okta.com/docs/reference/api/groups/)
+  * [Apps API](https://developer.okta.com/docs/reference/api/apps/)
+  * [Trusted Origins API](https://developer.okta.com/docs/reference/api/trusted-origins/)
+  * [Event Hook Handler](https://developer.okta.com/docs/concepts/event-hooks/)
 
   The API access uses the [Tesla](https://github.com/teamon/tesla) library and
   relies on the caller passing in an Okta base URL and an API Key to create a
@@ -38,7 +41,7 @@ defmodule Okta do
 
       def deps do
         [
-          {:okta_api, "~> 0.1.4"},
+          {:okta_api, "~> 0.1.9"},
         ]
       end
 
