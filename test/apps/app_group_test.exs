@@ -1,4 +1,4 @@
-defmodule Okta.AppUsersTest do
+defmodule Okta.AppGroupTest do
   use ExUnit.Case
   alias Okta.TestSupport.Helpers
   doctest Okta.Apps
