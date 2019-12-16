@@ -2,7 +2,7 @@
 
 This library provides an Elixir API for accessing the [Okta Developer APIs](https://developer.okta.com/docs/reference/).
 
-![](https://github.com/variancehq/okta-elixir/workflows/.github/workflows/elixir.yml/badge.svg)
+![](https://github.com/variancehq/okta-elixir/.github/workflows/elixir.yml/badge.svg)
 
 Currently implemented are:
 
