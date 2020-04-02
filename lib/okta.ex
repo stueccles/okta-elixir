@@ -50,7 +50,7 @@ defmodule Okta do
   be found at [https://hexdocs.pm/okta](https://hexdocs.pm/okta_api).
   """
   @type client() :: Tesla.Client.t()
-  @type result() :: {:ok, map(), Tesla.Env.t()} | {:error, map(), any}
+  @type result() :: {:ok, map() | String.t(), Tesla.Env.t()} | {:error, map(), any}
 
   @spec client(String.t(), String.t()) :: client()
   def client(base_url, api_key) do
