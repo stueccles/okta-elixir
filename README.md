@@ -10,6 +10,7 @@ Currently implemented are:
 - [Groups API](https://developer.okta.com/docs/reference/api/groups/)
 - [Apps API](https://developer.okta.com/docs/reference/api/apps/)
 - [Trusted Origins API](https://developer.okta.com/docs/reference/api/trusted-origins/)
+- [Identity Provider API](https://developer.okta.com/docs/reference/api/idps/)
 - [Event Hook Handler](https://developer.okta.com/docs/concepts/event-hooks/)
 
 The API access uses the [Tesla](https://github.com/teamon/tesla) library and
