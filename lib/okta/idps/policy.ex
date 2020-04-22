@@ -11,10 +11,12 @@ defmodule Okta.IdPs.Policy do
     :maxClockSkew
   ]
 
+  @type t :: %__MODULE__{}
+
   @doc """
   Creates a partial Policy that will autoprovision Idp users to a group
   """
-  @spec auto_provision_to_groups_policy(list(String.t())) :: Okta.IdPs.Policy.t()
+  @spec auto_provision_to_groups_policy(list(String.t())) :: t()
   def auto_provision_to_groups_policy(group_ids) do
     %__MODULE__{
       provisioning: %{
