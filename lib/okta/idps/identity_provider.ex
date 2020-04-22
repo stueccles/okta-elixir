@@ -19,6 +19,8 @@ defmodule Okta.IdPs.IdentityProvider do
     :policy
   ]
 
+  @type t :: %__MODULE__{}
+
   @doc """
   Returns a default Google IdP with the given name, client_id and client_secret.
 
@@ -29,7 +31,7 @@ defmodule Okta.IdPs.IdentityProvider do
 
   https://developer.okta.com/docs/reference/api/users/#get-user
   """
-  @spec google(String.t(), String.t(), String.t()) :: __MODULE__.t()
+  @spec google(String.t(), String.t(), String.t()) :: t()
   def google(name, client_id, client_secret) do
     protocol = %Protocol{
       credentials: %{
