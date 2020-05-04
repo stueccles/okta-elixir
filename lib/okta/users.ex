@@ -339,10 +339,8 @@ defmodule Okta.Users do
   def change_password(client, user_id, old_password, new_password, strict \\ false) do
     Tesla.post(
       client,
-      @users_url <> "/#{user_id}",
-      %{
-        credentials: %{oldPassword: %{value: old_password}, newPassword: %{value: new_password}}
-      },
+      @users_url <> "/#{user_id}/credentials/change_password",
+      %{oldPassword: %{value: old_password}, newPassword: %{value: new_password}},
       query: [strict: strict]
     )
     |> Okta.result()
@@ -377,7 +375,7 @@ defmodule Okta.Users do
   @spec change_recovery_credential(Okta.client(), String.t(), String.t(), String.t(), String.t()) ::
           Okta.result()
   def change_recovery_credential(client, user_id, password, question, answer) do
-    Tesla.post(client, @users_url <> "/#{user_id}", %{
+    Tesla.post(client, @users_url <> "/#{user_id}/credentials/change_recovery_question", %{
       credentials: Map.merge(password_data(password), recovery_data(question, answer))
     })
     |> Okta.result()

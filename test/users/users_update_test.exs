@@ -48,7 +48,7 @@ defmodule Okta.UsersUpdateTest do
     new_password = "change_password"
 
     Helpers.mock_request(
-      path: "/api/v1/users/#{user_id}",
+      path: "/api/v1/users/#{user_id}/credentials/change_password",
       method: :post,
       query: [strict: false],
       body:
@@ -93,7 +93,7 @@ defmodule Okta.UsersUpdateTest do
     answer = "Okta"
 
     Helpers.mock_request(
-      path: "/api/v1/users/#{user_id}",
+      path: "/api/v1/users/#{user_id}/credentials/change_recovery_question",
       method: :post,
       body:
         Jason.encode!(%{
