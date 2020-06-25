@@ -53,10 +53,8 @@ defmodule Okta.UsersUpdateTest do
       query: [strict: false],
       body:
         Jason.encode!(%{
-          credentials: %{
-            oldPassword: %{value: old_password},
-            newPassword: %{value: new_password}
-          }
+          oldPassword: %{value: old_password},
+          newPassword: %{value: new_password}
         }),
       status: 200
     )

@@ -12,6 +12,7 @@ Currently implemented are:
 - [Trusted Origins API](https://developer.okta.com/docs/reference/api/trusted-origins/)
 - [Identity Provider API](https://developer.okta.com/docs/reference/api/idps/)
 - [Event Hook Handler](https://developer.okta.com/docs/concepts/event-hooks/)
+- [Okta OpenID Connect & OAuth 2.0 API](https://developer.okta.com/docs/reference/api/oidc/)
 
 The API access uses the [Tesla](https://github.com/teamon/tesla) library and
 relies on the caller passing in an Okta base URL and an API Key to create a
@@ -45,7 +46,7 @@ installed by adding `okta` to your list of dependencies in `mix.exs`:
 
       def deps do
         [
-          {:okta_api, "~> 0.1.9"},
+          {:okta_api, "~> 0.1.13"},
         ]
       end
 
