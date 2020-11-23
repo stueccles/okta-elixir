@@ -63,7 +63,7 @@ defmodule Okta.Users do
   """
   @spec clear_user_sessions(Okta.client(), String.t(), boolean()) :: Okta.result()
   def clear_user_sessions(client, user_id, oauth_tokens \\ false) do
-    Tesla.delete(client, @users_url <> "/#{user_id}", query: [oauthTokens: oauth_tokens])
+    Tesla.delete(client, @users_url <> "/#{user_id}/sessions", query: [oauthTokens: oauth_tokens])
     |> Okta.result()
   end
 
