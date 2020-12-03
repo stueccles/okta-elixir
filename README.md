@@ -46,7 +46,7 @@ installed by adding `okta` to your list of dependencies in `mix.exs`:
 
       def deps do
         [
-          {:okta_api, "~> 0.1.13"},
+          {:okta_api, "~> 0.1.14"},
         ]
       end
 
