@@ -9,6 +9,7 @@ defmodule Okta.IdPs.Protocol do
     :endpoints,
     :relayState,
     :algorithms,
+    :issuer,
     :credentials,
     :scopes,
     :settings
