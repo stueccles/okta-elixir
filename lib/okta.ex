@@ -41,7 +41,7 @@ defmodule Okta do
 
       def deps do
         [
-          {:okta_api, "~> 0.1.9"},
+          {:okta_api, "~> 0.1.14"},
         ]
       end
 
