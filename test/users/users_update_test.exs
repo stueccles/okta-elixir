@@ -15,7 +15,7 @@ defmodule Okta.UsersUpdateTest do
     user_id: user_id
   } do
     Helpers.mock_request(
-      path: "/api/v1/users/#{user_id}",
+      path: "/api/v1/users/#{user_id}/sessions",
       method: :delete,
       query: [oauthTokens: false],
       status: 200
