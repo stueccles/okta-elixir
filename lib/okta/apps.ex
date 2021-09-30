@@ -5,10 +5,10 @@ defmodule Okta.Apps do
   All methods require a Tesla Client struct created with `Okta.client(base_url, api_key)`.
 
   ## Examples
-  ```
+
       client = Okta.Client("https://dev-000000.okta.com", "thisismykeycreatedinokta")
       {:ok, result, _env} = Okta.Groups.list_applications(client)
-  ```
+
   """
 
   @apps_url "/api/v1/apps"
@@ -36,7 +36,7 @@ defmodule Okta.Apps do
   @doc """
   Adds a new OAuth2 application to your organization.
 
-  The `label` parameter is a string readablle label for the applicatio, while `client_credentials` and `settings` are the configured of the application.
+  The `label` parameter is a string readablle label for the application, while `client_credentials` and `settings` are the configured of the application.
   None of the values of `client_credentials` are required but `client_settings` have different requirements depending on what is set for `grant_types` (which is required) in `settings`
 
   ## Examples
@@ -180,7 +180,7 @@ defmodule Okta.Apps do
   end
 
   @doc """
-  Assign a user to an application which can be done with and wihout application specific credentials and profile for SSO and provisioning
+  Assign a user to an application which can be done with and without application specific credentials and profile for SSO and provisioning
 
   https://developer.okta.com/docs/reference/api/apps/#application-user-operations
   """

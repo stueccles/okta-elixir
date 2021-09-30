@@ -23,7 +23,7 @@ defmodule Okta.AppOperationsTest do
       application_type: "browser"
     }
 
-    label = "Testin OAuth2 Okta Apps"
+    label = "Testing OAuth2 Okta Apps"
 
     oauth2_app = %{
       name: "oidc_client",
