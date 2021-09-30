@@ -1,22 +1,22 @@
 defmodule Okta.MixProject do
   use Mix.Project
 
+  @source_url "https://github.com/variance-inc/okta-elixir"
+  @version "0.1.14"
+
   def project do
     [
       app: :okta_api,
-      version: "0.1.14",
+      version: @version,
       elixir: "~> 1.9",
       elixirc_paths: elixirc_paths(Mix.env()),
       start_permanent: Mix.env() == :prod,
-      description: description(),
       package: package(),
       deps: deps(),
-      source_url: "https://github.com/variance-inc/okta-elixir",
-      docs: [main: "Okta"]
+      docs: docs()
     ]
   end
 
-  # Run "mix help compile.app" to learn about applications.
   def application do
     [
       extra_applications: [:tesla, :hackney, :logger]
@@ -26,10 +26,9 @@ defmodule Okta.MixProject do
   defp elixirc_paths(:test), do: ["lib", "test/support"]
   defp elixirc_paths(_), do: ["lib"]
 
-  # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
-      {:ex_doc, "~> 0.21", only: :dev, runtime: false},
+      {:ex_doc, ">= 0.0.0", only: :dev, runtime: false},
       {:tesla, "~> 1.3"},
       {:hackney, "~> 1.15"},
       {:jason, ">= 1.0.0"},
@@ -38,17 +37,29 @@ defmodule Okta.MixProject do
     ]
   end
 
-  defp description do
-    "Elixir SDK for Okta APIs"
-  end
-
   defp package do
     [
       name: "okta_api",
+      description: "Elixir SDK for Okta APIs",
       # These are the default files included in the package
       files: ~w(lib config .formatter.exs mix.exs README* LICENSE* ),
-      licenses: ["MIT License"],
-      links: %{"GitHub" => "https://github.com/variance-inc/okta-elixir"}
+      licenses: ["MIT"],
+        links: %{
+          "GitHub" => @source_url
+        }
+    ]
+  end
+
+  defp docs do
+    [
+      extras: [
+        "LICENSE.md": [title: "License"],
+        "README.md": [title: "Overview"]
+      ],
+      main: "readme",
+      source_url: @source_url,
+      source_ref: @version,
+      formatters: ["html"]
     ]
   end
 end
